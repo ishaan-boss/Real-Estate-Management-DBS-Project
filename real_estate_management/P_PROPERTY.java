@@ -1,7 +1,8 @@
-package real_estate_management;
 
 //import java.lang.System.Logger.Level;
+import com.mysql.cj.xdevapi.PreparableStatement;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.*;
@@ -13,6 +14,7 @@ import java.util.logging.*;
  * @author ishaa
  */
 public class P_PROPERTY {
+    private int SID;
     private String name;
     private int size;
     private String status;
@@ -28,6 +30,10 @@ public class P_PROPERTY {
     private String Category;
     private String Description; 
 
+    public int getSID()
+    {
+        return SID;
+    }    
     
     public int getFloor(){
         return Floor;
@@ -72,8 +78,9 @@ public class P_PROPERTY {
         return Bedrooms;
     }
 
-    public boolean isRERA() {
-        return RERA;
+    public String isRERA() {
+        if (this.RERA) return "YES";
+        else return "NO";
     }
 
     public String getCategory() {
@@ -83,7 +90,13 @@ public class P_PROPERTY {
     public String getDescription() {
         return Description;
     }
-
+    
+    public void setSID()
+    {
+        //create object to get particular SId
+        SELLER_LOGIN_WINDOW obj = new SELLER_LOGIN_WINDOW();
+        this.SID = obj.getSID();
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -124,8 +137,8 @@ public class P_PROPERTY {
         this.Bedrooms = Bedrooms;
     }
 
-    public void setRERA(boolean RERA) {
-        this.RERA = RERA;
+    public void setRERA(String RERA) {
+        this.RERA = RERA.equals("YES");
     }
 
     public void setCategory(String Category) {
@@ -143,6 +156,7 @@ public class P_PROPERTY {
     public P_PROPERTY(){}
     
     public P_PROPERTY(String name, int size, String status, int HouseNo, int Floor, String StreetName, String Locality, String City, String State, int PostalCode, int Bedrooms, boolean RERA, String Category, String Description) {
+        setSID();
         this.name = name;
         this.size = size;
         this.status = status;
@@ -164,11 +178,12 @@ public class P_PROPERTY {
     {
         PreparedStatement ps;
         
-        String addQuery = "INSERT INTO Property (House_Name, Size, Status, House_No, Floor, Street_Name, Locality, City, State, Postal_Code, Description, Listing_Category, BHK, Is_RERA_Approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String addQuery = "INSERT INTO Property (S_Id,House_Name, Size, Status, House_No, Floor, Street_Name, Locality, City, State, Postal_Code, Description, Listing_Category, BHK, Is_RERA_Approved) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             
             ps = THE_CONNECTION.getTheConnection().prepareStatement(addQuery);
-            //doubt
+            
+            ps.setInt(0, property.getSID());
             ps.setString(1, property.getName());
             ps.setInt(2, property.getSize());
             ps.setString(3, property.getStatus());
@@ -182,7 +197,7 @@ public class P_PROPERTY {
             ps.setString(11, property.getDescription());
             ps.setString(12, property.getCategory());
             ps.setInt(13, property.getBedrooms());
-            ps.setBoolean(14, property.isRERA());
+            ps.setString(14, property.isRERA());
             
                  
             return (ps.executeUpdate() > 0);
@@ -198,32 +213,34 @@ public class P_PROPERTY {
     {
     return true;
     }
-    public boolean removeProperty(int P_Id)
+    public boolean removeProperty(P_PROPERTY property)
     {
-        PreparedStatement ps;
-        
-        String deleteQuery = "DELETE FROM Property WHERE P_Id=?";
-        
-        try {
-            ps = THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery);
-            
-            ps.setInt(1, P_Id);
-            return (ps.executeUpdate() >0);
-            
-        } catch (Exception ex) {
-            Logger.getLogger(P_PROPERTY.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            return false;
-        }
-        }
-         
-        
-    
+    return true;
+    }
     
     //funciton to return an arralist of properties
     
-    public ArrayList<P_PROPERTY> propertiesList()
+    public P_PROPERTY[] propertiesList()
     {
-        return new ArrayList<P_PROPERTY>(); 
+        ArrayList<P_PROPERTY> list  = new ArrayList<>();
+        String selectQuery = "SELECT * FROM 'Property'";
+        PreparedStatement ps = null;
+        ResultSet rs;
+        
+        try{
+        rs = ps.executeQuery();
+        int i = 0;
+        P_PROPERTY property;
+        while(rs.next()){
+           property = new P_PROPERTY(rs.getInt());
+          
+            i++;
+        }
+        
+        }catch(SQLException ex){
+            Logger.getLogger(THE_CONNECTION.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    
+        return properties;
     }
-
 }
