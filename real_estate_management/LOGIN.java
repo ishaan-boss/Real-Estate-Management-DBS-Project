@@ -1,5 +1,3 @@
-package real_estate_management;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -148,10 +146,15 @@ public class LOGIN extends javax.swing.JFrame {
 
     private void jButton_Login_BuyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Login_BuyerActionPerformed
         // TODO add your handling code here:
+        BUYER_LOGIN_WINDOW w2 = new BUYER_LOGIN_WINDOW();
+        w2.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton_Login_BuyerActionPerformed
 
     private void jButton_Login_SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Login_SignupActionPerformed
         // TODO add your handling code here:
+        SIGN_UP_WINDOW w3 = new SIGN_UP_WINDOW();
+        w3.setVisible(true);
     }//GEN-LAST:event_jButton_Login_SignupActionPerformed
 
     /**

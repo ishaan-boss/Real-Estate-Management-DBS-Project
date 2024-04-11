@@ -1,5 +1,3 @@
-package real_estate_management;
-
 
 //import javax.sql.DataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
