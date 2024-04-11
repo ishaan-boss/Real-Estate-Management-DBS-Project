@@ -283,11 +283,11 @@ public class SIGN_UP_WINDOW extends javax.swing.JFrame {
 
     private void jFormattedTextField_SignUP_DOBFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextField_SignUP_DOBFocusLost
         // TODO add your handling code here:
-//        String DOB = String.valueOf(jFormattedTextField_SignUP_DOB.getText());
-//        if(DOB.trim().toLowerCase().equals("") || DOB.trim().equals("")){
-//            jFormattedTextField_SignUP_DOB.setText("YYYY-MM-DD");
-//            jFormattedTextField_SignUP_DOB.setForeground(Color.black);
-//        }
+        String DOB = String.valueOf(jFormattedTextField_SignUP_DOB.getText());
+        if(DOB.trim().toLowerCase().equals("") || DOB.trim().equals("")){
+            jFormattedTextField_SignUP_DOB.setText("YYYY-MM-DD");
+            jFormattedTextField_SignUP_DOB.setForeground(Color.black);
+        }
     }//GEN-LAST:event_jFormattedTextField_SignUP_DOBFocusLost
 
     /**
