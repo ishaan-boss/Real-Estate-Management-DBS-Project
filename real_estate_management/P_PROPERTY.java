@@ -18,7 +18,7 @@ public class P_PROPERTY {
     private String name;
     private int size;
     private String status;
-    private int HouseNo;
+    private String HouseNo;
     private int Floor;
     private String StreetName; 
     private String Locality;
@@ -50,7 +50,7 @@ public class P_PROPERTY {
         return status;
     }
 
-    public int getHouseNo() {
+    public String getHouseNo() {
         return HouseNo;
     }
 
@@ -78,11 +78,14 @@ public class P_PROPERTY {
         return Bedrooms;
     }
 
-    public String isRERA() {
+    public String isRERAString() {
         if (this.RERA) return "YES";
         else return "NO";
     }
-
+    public boolean isRERABoolean(String bool)
+    {
+        return bool.equals("YES");
+    }
     public String getCategory() {
         return Category;
     }
@@ -109,7 +112,7 @@ public class P_PROPERTY {
         this.status = status;
     }
 
-    public void setHouseNo(int HouseNo) {
+    public void setHouseNo(String HouseNo) {
         this.HouseNo = HouseNo;
     }
 
@@ -155,12 +158,13 @@ public class P_PROPERTY {
     
     public P_PROPERTY(){}
     
-    public P_PROPERTY(String name, int size, String status, int HouseNo, int Floor, String StreetName, String Locality, String City, String State, int PostalCode, int Bedrooms, boolean RERA, String Category, String Description) {
+    public P_PROPERTY(String name, int size, String status, String HouseNo, int Floor, String StreetName, String Locality, String City, String State, int PostalCode, int Bedrooms, boolean RERA, String Category, String Description) {
         setSID();
         this.name = name;
         this.size = size;
         this.status = status;
         this.HouseNo = HouseNo;
+        this.Floor = Floor;
         this.StreetName = StreetName;
         this.Locality = Locality;
         this.City = City;
@@ -183,21 +187,21 @@ public class P_PROPERTY {
             
             ps = THE_CONNECTION.getTheConnection().prepareStatement(addQuery);
             
-            ps.setInt(0, property.getSID());
-            ps.setString(1, property.getName());
-            ps.setInt(2, property.getSize());
-            ps.setString(3, property.getStatus());
-            ps.setInt(4, property.getHouseNo());
-            ps.setInt(5, property.getFloor());
-            ps.setString(6, property.getStreetName());
-            ps.setString(7, property.getLocality());
-            ps.setString(8, property.getCity());
-            ps.setString(9, property.getState());
-            ps.setInt(10, property.getPostalCode());
-            ps.setString(11, property.getDescription());
-            ps.setString(12, property.getCategory());
-            ps.setInt(13, property.getBedrooms());
-            ps.setString(14, property.isRERA());
+            ps.setInt(1, property.getSID());
+            ps.setString(2, property.getName());
+            ps.setInt(3, property.getSize());
+            ps.setString(4, property.getStatus());
+            ps.setString(5, property.getHouseNo());
+            ps.setInt(6, property.getFloor());
+            ps.setString(7, property.getStreetName());
+            ps.setString(8, property.getLocality());
+            ps.setString(9, property.getCity());
+            ps.setString(10, property.getState());
+            ps.setInt(11, property.getPostalCode());
+            ps.setString(12, property.getDescription());
+            ps.setString(13, property.getCategory());
+            ps.setInt(14, property.getBedrooms());
+            ps.setString(15, property.isRERAString());
             
                  
             return (ps.executeUpdate() > 0);
@@ -220,27 +224,40 @@ public class P_PROPERTY {
     
     //funciton to return an arralist of properties
     
-    public P_PROPERTY[] propertiesList()
+    public ArrayList<P_PROPERTY> propertiesList()
     {
         ArrayList<P_PROPERTY> list  = new ArrayList<>();
-        String selectQuery = "SELECT * FROM 'Property'";
+        String selectQuery = "SELECT * FROM property;";
         PreparedStatement ps = null;
         ResultSet rs;
         
         try{
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(selectQuery);
         rs = ps.executeQuery();
-        int i = 0;
         P_PROPERTY property;
+        int i =0;
         while(rs.next()){
-           property = new P_PROPERTY(rs.getInt());
-          
-            i++;
+           property = new P_PROPERTY(rs.getString("House_Name"),
+                                     rs.getInt("Size"),
+                                     rs.getString("Status"),
+                                     rs.getString("House_No"),
+                                     rs.getInt("Floor"),
+                                     rs.getString("Street_Name"),
+                                     rs.getString("Locality"),
+                                     rs.getString("City"),
+                                     rs.getString("State"),
+                                     rs.getInt("Postal_Code"),
+                                     rs.getInt("BHK"),
+                                     isRERABoolean(rs.getString("Is_RERA_Approved")),
+                                     rs.getString("Listing_Category"),
+                                     rs.getString("Description"));
+           list.add(property);
         }
         
         }catch(SQLException ex){
             Logger.getLogger(THE_CONNECTION.class.getName()).log(Level.SEVERE,null,ex);
         }
     
-        return properties;
+        return list;
     }
 }
