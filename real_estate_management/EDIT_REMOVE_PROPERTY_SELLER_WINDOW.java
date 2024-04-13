@@ -2,13 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package real_estate_management;
 
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ListIterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicHTML;
+//import real_estate_management.THE_CONNECTION;
 
 /**
  *
- * @author ishaa
+ * @author ishaan
  */
 public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
 
@@ -17,8 +27,37 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
      */
     public EDIT_REMOVE_PROPERTY_SELLER_WINDOW() {
         initComponents();
+        
+        //populate the combobox
+        SELLER_LOGIN_WINDOW obj = new SELLER_LOGIN_WINDOW();
+        
+        bindCombo(obj.getSID());
+        jLabel_Duration.setVisible(false);
+        jTextField_Duration.setVisible(false);
     }
-
+    
+    public void bindCombo(int SID){
+        String P_Id_Query = "SELECT P_Id FROM Property WHERE S_Id = ?";
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(P_Id_Query);
+            ps.setInt(1,SID);
+            rs = ps.executeQuery(); 
+        
+        jComboBox_PId.removeAllItems(); // Clear existing items
+        
+        while (rs.next()) {
+            int pId = rs.getInt("P_Id");
+            jComboBox_PId.addItem(String.valueOf(pId)); // Add P_Id to the JComboBox
+        
+        }
+        } catch (Exception ex) {
+             JOptionPane.showMessageDialog(null, ex.getMessage()+ "ERROR", "ERROR", 0);
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,12 +67,19 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel16 = new javax.swing.JLabel();
+        jTextField_Price = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jTextField_Price2 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel_Title = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField_House_Name = new javax.swing.JTextField();
         jButton_Remove_Property = new javax.swing.JButton();
         jButton_Edit_Property = new javax.swing.JButton();
         jTextField_Size = new javax.swing.JTextField();
@@ -60,10 +106,41 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jComboBox_Category = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
-        jTextField_House_Name1 = new javax.swing.JTextField();
+        jTextField_House_Name = new javax.swing.JTextField();
         jButton_Edit_Remove_Property_Search = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jSpinner_Floor = new javax.swing.JSpinner();
+        jComboBox_PId = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        jTextField_EDIT_Price = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jTextField_Latitude = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jTextField_Longitude = new javax.swing.JTextField();
+        jLabel_Duration = new javax.swing.JLabel();
+        jTextField_Duration = new javax.swing.JTextField();
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel16.setText("Price:");
+
+        jTextField_Price.setMinimumSize(new java.awt.Dimension(64, 31));
+        jTextField_Price.setPreferredSize(new java.awt.Dimension(64, 31));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel17.setText("Latitude:");
+
+        jTextField_Price2.setMinimumSize(new java.awt.Dimension(64, 31));
+        jTextField_Price2.setPreferredSize(new java.awt.Dimension(64, 31));
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel18.setText("Longitude:");
+
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel19.setText("Duration:");
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,8 +173,6 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel4.setText("Description / Comment:");
-
-        jTextField_House_Name.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
         jButton_Remove_Property.setBackground(new java.awt.Color(240, 240, 240));
         jButton_Remove_Property.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -136,11 +211,6 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
         jLabel7.setText("House No.:");
 
         jTextField_HouseNo.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jTextField_HouseNo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField_HouseNoKeyTyped(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel8.setText("Street Name:");
@@ -193,11 +263,16 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
 
         jComboBox_Category.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jComboBox_Category.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sell", "Rent" }));
+        jComboBox_Category.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_CategoryActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel14.setText("Name:");
 
-        jTextField_House_Name1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextField_House_Name.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
         jButton_Edit_Remove_Property_Search.setBackground(new java.awt.Color(240, 240, 240));
         jButton_Edit_Remove_Property_Search.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -213,79 +288,135 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
 
         jSpinner_Floor.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
+        jComboBox_PId.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jComboBox_PId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel20.setText("Price (INR):");
+
+        jTextField_EDIT_Price.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextField_EDIT_Price.setMinimumSize(new java.awt.Dimension(64, 31));
+        jTextField_EDIT_Price.setPreferredSize(new java.awt.Dimension(64, 31));
+        jTextField_EDIT_Price.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_EDIT_PriceKeyTyped(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel21.setText("Latitude:");
+
+        jTextField_Latitude.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextField_Latitude.setMinimumSize(new java.awt.Dimension(64, 31));
+        jTextField_Latitude.setPreferredSize(new java.awt.Dimension(64, 31));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel22.setText("Longitude:");
+
+        jTextField_Longitude.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+
+        jLabel_Duration.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel_Duration.setText("Duration(months):");
+
+        jTextField_Duration.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jTextField_Duration.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_DurationKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 9, Short.MAX_VALUE)
+                .addComponent(jPanel_Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(82, 82, 82)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField_Size)
-                            .addComponent(jTextField_HouseNo)
-                            .addComponent(jTextField_StreetName)
-                            .addComponent(jTextField_Locality)
-                            .addComponent(jTextField_City)
-                            .addComponent(jTextField_State)
-                            .addComponent(jTextField_PostalCode)
-                            .addComponent(jComboBox_Status, 0, 233, Short.MAX_VALUE)
-                            .addComponent(jTextField_House_Name1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField_House_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton_Edit_Remove_Property_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton_Edit_Property, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner_Floor, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jCheckBox_isRERAApproved, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jSpinner_Bedrooms, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField_Size)
+                    .addComponent(jTextField_HouseNo)
+                    .addComponent(jTextField_StreetName)
+                    .addComponent(jTextField_Locality)
+                    .addComponent(jTextField_City)
+                    .addComponent(jTextField_State)
+                    .addComponent(jTextField_PostalCode)
+                    .addComponent(jComboBox_Status, 0, 233, Short.MAX_VALUE)
+                    .addComponent(jTextField_House_Name)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBox_PId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_Edit_Remove_Property_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox_Category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(40, 40, 40)
-                                    .addComponent(jButton_Remove_Property, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(71, 71, 71))
+                                .addGap(7, 7, 7)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel15))
+                                .addGap(63, 63, 63)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSpinner_Bedrooms, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                                    .addComponent(jSpinner_Floor)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(127, 127, 127))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCheckBox_isRERAApproved, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel_Duration))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel21)
+                                            .addComponent(jLabel20))
+                                        .addGap(0, 130, Short.MAX_VALUE)))
+                                .addGap(76, 76, 76))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextField_Duration, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField_Longitude, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField_Latitude, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField_EDIT_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox_Category, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton_Edit_Property, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150)
+                .addComponent(jButton_Remove_Property, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(147, 147, 147))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,78 +427,97 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
                         .addGap(64, 64, 64)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField_House_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSpinner_Bedrooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
+                            .addComponent(jLabel2)
+                            .addComponent(jComboBox_PId, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_Edit_Remove_Property_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField_House_Name1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(jSpinner_Floor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinner_Floor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_House_Name, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_Size, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
-                        .addComponent(jComboBox_Category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jComboBox_Category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jCheckBox_isRERAApproved))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_HouseNo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_StreetName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_Locality, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_Size, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_City, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_EDIT_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_Latitude, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(jTextField_Longitude, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_State, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel_Duration)
+                            .addComponent(jTextField_Duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox_isRERAApproved)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField_HouseNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_StreetName, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_Locality, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_City, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_State, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_PostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField_PostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2))
-                .addGap(82, 82, 82)
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Remove_Property, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Edit_Property, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(413, 413, 413))
+                .addGap(433, 433, 433))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 733, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, Short.MAX_VALUE)
         );
 
         pack();
@@ -375,21 +525,81 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
 
     private void jButton_Remove_PropertyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Remove_PropertyActionPerformed
         // TODO add your handling code here:
-        try {
+       try 
+        {
+            int P_Id = Integer.parseInt(jComboBox_PId.getSelectedItem().toString());
+            P_PROPERTY property = new P_PROPERTY();
+            //String name = jTextField_House_Name.getText();
+//            
+//            int size = Integer.valueOf(jTextField_Size.getText());
+//            String status = jComboBox_Status.getSelectedItem().toString();
+//            int HouseNo = Integer.valueOf(jTextField_HouseNo.getText());
+//            
+//            String StreetName = jTextField_StreetName.getText();
+//            String Locality = jTextField_Locality.getText();
+//            String City = jTextField_City.getText();
+//            String State = jTextField_State.getText();
+//            
+//            int PostalCode = Integer.valueOf(jTextField_PostalCode.getText());
+//            int Bedrooms = Integer.valueOf(jSpinner_Bedrooms.getValue().toString());
+//            int Floor = Integer.valueOf(jSpinner_Floor.getValue().toString());
+//            String Category = jComboBox_Category.getSelectedItem().toString();
+//            
+//            boolean isRERAApproved = false;
+//            
+//            String Description = jTextArea_Description.getText();
+//            
+//            if (jCheckBox_isRERAApproved.isSelected()) isRERAApproved = true;
+//            
+//            P_PROPERTY property = new P_PROPERTY( name, size, status, HouseNo, Floor, StreetName, Locality,City, State, PostalCode, Bedrooms,isRERAApproved ,  Category, Description);
+//            
+//            if (new P_PROPERTY().removeProperty(property, P_Id)) {
+//                 
+//                 JOptionPane.showMessageDialog(null, "Property Data Deleted", "Edit Property", 1);
+//            }
+//            else
+//            {
+//                JOptionPane.showMessageDialog(null,"Property Data NOT Deleted","Edit Property",2 );
+            //}
+            if (jComboBox_PId == null) {
+                JOptionPane.showMessageDialog(null,"Enter the Property ID", "Empty ID", 2);
+            }
+            else{
+                int yes_or_no = JOptionPane.showConfirmDialog(null,"DO you want to delete this Property","Delete Property",JOptionPane.YES_NO_OPTION  );
+                
+                if (yes_or_no  == JOptionPane.YES_OPTION)
+                {
+                    if (property.removeProperty(P_Id)) 
+                    {
+                        JOptionPane.showMessageDialog(null, "Property Data Deleted", "Delete Property",1 );
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Operation Failed", "Delete Property",2);
+                    }
+                }
+            }
+                
             
-        } catch (Exception ex) {
+             
+            
+        } catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage()+ "ERROR", "ERROR", 0);
         }
     }//GEN-LAST:event_jButton_Remove_PropertyActionPerformed
-
+public boolean isRERABoolean(String bool)
+    {
+        return bool.equals("YES");
+    }
     private void jButton_Edit_PropertyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_PropertyActionPerformed
         // TODO add your handling code here:
          try 
         {
+            int P_Id = Integer.parseInt(jComboBox_PId.getSelectedItem().toString()); 
             String name = jTextField_House_Name.getText();
             
             int size = Integer.valueOf(jTextField_Size.getText());
             String status = jComboBox_Status.getSelectedItem().toString();
-            int HouseNo = Integer.valueOf(jTextField_HouseNo.getText());
+            String HouseNo = jTextField_HouseNo.getText();
             
             String StreetName = jTextField_StreetName.getText();
             String Locality = jTextField_Locality.getText();
@@ -401,15 +611,25 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
             int Floor = Integer.valueOf(jSpinner_Floor.getValue().toString());
             String Category = jComboBox_Category.getSelectedItem().toString();
             
+            Integer priceInteger = Integer.valueOf(jTextField_EDIT_Price.getText());
+            Float LatitudeFloat = Float.valueOf(jTextField_Latitude.getText());
+            Float LongitudeFloat = Float.valueOf(jTextField_Longitude.getText());
+            Integer DurationInteger=0 ;
             boolean isRERAApproved = false;
-            
             String Description = jTextArea_Description.getText();
             
             if (jCheckBox_isRERAApproved.isSelected()) isRERAApproved = true;
             
             P_PROPERTY property = new P_PROPERTY( name, size, status, HouseNo, Floor, StreetName, Locality,City, State, PostalCode, Bedrooms,isRERAApproved ,  Category, Description);
             
-            if (new P_PROPERTY().editProperty(property)) {
+             if(Category.equals("Rent")){
+                System.out.println("Rent");
+                DurationInteger= Integer.valueOf(jTextField_Duration.getText());
+            }
+            
+            property = property.properties_feature(property, priceInteger, LatitudeFloat, LongitudeFloat, DurationInteger);
+            
+            if (new P_PROPERTY().editProperty(property, P_Id)) {
                  
                  JOptionPane.showMessageDialog(null, "Property Data Updated", "Edit Property", 1);
             }
@@ -421,7 +641,9 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
             
         } catch (Exception ex)
         {
+            
             JOptionPane.showMessageDialog(null, ex.getMessage()+ "ERROR", "ERROR", 0);
+            Logger.getLogger(EDIT_REMOVE_PROPERTY_SELLER_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
       
     }//GEN-LAST:event_jButton_Edit_PropertyActionPerformed
@@ -437,16 +659,69 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
 
     private void jButton_Edit_Remove_Property_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_Remove_Property_SearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_Edit_Remove_Property_SearchActionPerformed
-
-    private void jTextField_HouseNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_HouseNoKeyTyped
-        // TODO add your handling code here:
-          char c = evt.getKeyChar();
-
-        if(!Character.isDigit(c)){
-            evt.consume();
+         int Pid=Integer.parseInt(jComboBox_PId.getSelectedItem().toString());
+        P_PROPERTY property = new P_PROPERTY();
+        String selectQuery = "SELECT * FROM property WHERE P_Id = ?;";
+        String selectQuery_rent = "SELECT * FROM Rent WHERE P_Id = ?;";
+        String selectQuery_sale = "SELECT * FROM sale WHERE P_Id = ?;";
+        String selectQuery_G_Map = "SELECT * FROM G_Map WHERE P_Id = ?;";
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            ps =THE_CONNECTION.getTheConnection().prepareStatement(selectQuery);
+            ps.setInt(1, Pid);
+            
+            rs = ps.executeQuery();
+            if (rs.next()) 
+            {
+               jTextField_House_Name.setText(rs.getString("House_Name"));  
+               jTextField_Size.setText(String.valueOf(rs.getInt("Size")));
+               jComboBox_Status.setSelectedItem(rs.getString("Status"));  
+               jSpinner_Bedrooms.setValue(rs.getInt("BHK"));
+               jSpinner_Floor.setValue(rs.getInt("Floor")); 
+               jTextArea_Description.setText(rs.getString("Description"));
+               jTextField_City.setText(rs.getString("City"));
+               jTextField_HouseNo.setText( rs.getString("House_No"));
+               jTextField_Locality.setText(rs.getString("Locality"));
+               jTextField_State.setText( rs.getString("State"));
+               jTextField_PostalCode.setText(String.valueOf(rs.getInt("Postal_Code")));
+            
+               jCheckBox_isRERAApproved.setSelected(isRERABoolean(rs.getString("Is_RERA_Approved")));
+                jTextField_StreetName.setText(rs.getString("Street_Name"));                    
+                jComboBox_Category.setSelectedItem(rs.getString("Listing_Category")); 
+          
+         }
+            
+            ps =THE_CONNECTION.getTheConnection().prepareStatement(selectQuery_rent);
+            ps.setInt(1, Pid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                jTextField_EDIT_Price.setText(rs.getString("Rent_Price"));
+                jTextField_Duration.setText(rs.getString("Duration"));
+                                       
+            }
+            
+            ps =THE_CONNECTION.getTheConnection().prepareStatement(selectQuery_sale);
+            ps.setInt(1, Pid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                jTextField_EDIT_Price.setText(rs.getString("Price"));                              
+            }
+            
+            ps =THE_CONNECTION.getTheConnection().prepareStatement(selectQuery_G_Map);
+            ps.setInt(1, Pid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                jTextField_Latitude.setText(rs.getString("Latitude"));
+                jTextField_Longitude.setText(rs.getString("Longitude"));
+                                       
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EDIT_REMOVE_PROPERTY_SELLER_WINDOW.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jTextField_HouseNoKeyTyped
+        
+        
+    }//GEN-LAST:event_jButton_Edit_Remove_Property_SearchActionPerformed
 
     private void jTextField_PostalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_PostalCodeKeyTyped
         // TODO add your handling code here:
@@ -456,6 +731,36 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jTextField_PostalCodeKeyTyped
+
+    private void jComboBox_CategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_CategoryActionPerformed
+        // TODO add your handling code here:
+          if ("Rent".equalsIgnoreCase(jComboBox_Category.getSelectedItem().toString())) {
+           jLabel_Duration.setVisible(true);
+           jTextField_Duration.setVisible(true);
+        }
+        if ("Sell".equalsIgnoreCase(jComboBox_Category.getSelectedItem().toString())) {
+            jLabel_Duration.setVisible(false);
+           jTextField_Duration.setVisible(false);
+        }
+    }//GEN-LAST:event_jComboBox_CategoryActionPerformed
+
+    private void jTextField_EDIT_PriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_EDIT_PriceKeyTyped
+        // TODO add your handling code here:
+         char c = evt.getKeyChar();
+
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_EDIT_PriceKeyTyped
+
+    private void jTextField_DurationKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_DurationKeyTyped
+        // TODO add your handling code here:
+         char c = evt.getKeyChar();
+
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextField_DurationKeyTyped
 
 
     /**
@@ -499,6 +804,7 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Remove_Property;
     private javax.swing.JCheckBox jCheckBox_isRERAApproved;
     private javax.swing.JComboBox<String> jComboBox_Category;
+    private javax.swing.JComboBox<String> jComboBox_PId;
     private javax.swing.JComboBox<String> jComboBox_Status;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -507,7 +813,14 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -515,18 +828,26 @@ public class EDIT_REMOVE_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel_Duration;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_Title;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner_Bedrooms;
     private javax.swing.JSpinner jSpinner_Floor;
     private javax.swing.JTextArea jTextArea_Description;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField_City;
+    private javax.swing.JTextField jTextField_Duration;
+    private javax.swing.JTextField jTextField_EDIT_Price;
     private javax.swing.JTextField jTextField_HouseNo;
     private javax.swing.JTextField jTextField_House_Name;
-    private javax.swing.JTextField jTextField_House_Name1;
+    private javax.swing.JTextField jTextField_Latitude;
     private javax.swing.JTextField jTextField_Locality;
+    private javax.swing.JTextField jTextField_Longitude;
     private javax.swing.JTextField jTextField_PostalCode;
+    private javax.swing.JTextField jTextField_Price;
+    private javax.swing.JTextField jTextField_Price2;
     private javax.swing.JTextField jTextField_Size;
     private javax.swing.JTextField jTextField_State;
     private javax.swing.JTextField jTextField_StreetName;
