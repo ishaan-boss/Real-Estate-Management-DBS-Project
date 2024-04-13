@@ -48,8 +48,10 @@ public class SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(10).setPreferredWidth(35);
     }
 
-    //funstion to populate the table with properties data
     
+    
+    
+    //funstion to populate the table with properties data
     public void fillJtableWithPropertyData()
     {
         P_PROPERTY property = new P_PROPERTY();
@@ -62,8 +64,8 @@ public class SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         //add Data from list to rows
         for(int i =0;i<propertyList.size();i++)
         {
-//            rows[i][0] = propertyList.get(i).getID();
-            rows[i][0] = "1";
+            
+            rows[i][0] = propertyList.get(i).getPID();
             rows[i][1] = propertyList.get(i).getName();
             rows[i][2] = propertyList.get(i).getSize();
             rows[i][3] = propertyList.get(i).getStatus();
