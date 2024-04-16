@@ -1,8 +1,11 @@
+
+import java.sql.PreparedStatement;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package real_estate_management;
+
 
 /**
  *
@@ -13,8 +16,31 @@ public class BUYER_PROPERTY_VIEW extends javax.swing.JFrame {
     /**
      * Creates new form BUYER_PROPERTY_VIEW
      */
-    public BUYER_PROPERTY_VIEW(P_PROPERTY ) {
+    public BUYER_PROPERTY_VIEW(P_PROPERTY prop ) {
         initComponents();
+        jLabelBHKFill.setText(String.valueOf(prop.getBedrooms()));
+        jLabelCityFill.setText(prop.getCity());
+        jLabelDescriptionFill.setText(prop.getDescription());
+        jLabelFloorFill.setText(String.valueOf(prop.getFloor()));
+        jLabelLCFill.setText(prop.getCategory());
+        jLabelLocalityFill.setText(prop.getLocality());
+        jLabelNameFill.setText(prop.getName());
+        //jLabelStateFill.setText(prop.getState());
+        jLabelNumberFill.setText(prop.getHouseNo());
+        jLabelPostalCodeFill.setText(String.valueOf(prop.getPostalCode()));
+        jLabelRERAFill.setText(prop.isRERAString());
+        jLabelSizeFill.setText(String.valueOf(prop.getSize()));
+        jLabelStateFill.setText(prop.getState());
+        jLabelStatusFill.setText(prop.getStatus());
+        jLabelStreetNameFill.setText(prop.getStreetName());
+        jLabelPriceFill.setText(String.valueOf(prop.getPrice()));
+        if(prop.getDuration() != 0){
+           jLabelDurationFill.setText(String.valueOf(prop.getDuration()));
+        }
+        else{
+            jLabelDurationFill.setVisible(false);
+        }
+        
     }
 
     /**
@@ -118,9 +144,11 @@ public class BUYER_PROPERTY_VIEW extends javax.swing.JFrame {
         jLabelFloor.setOpaque(true);
 
         jLabelNameFill.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelNameFill.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelNameFill.setOpaque(true);
 
         jLabelSizeFill.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelSizeFill.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelSizeFill.setOpaque(true);
 
         jLabelStatusFill.setBackground(new java.awt.Color(255, 255, 255));
@@ -500,7 +528,7 @@ public class BUYER_PROPERTY_VIEW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BUYER_PROPERTY_VIEW().setVisible(true);
+                new BUYER_PROPERTY_VIEW(new P_PROPERTY()).setVisible(true);
             }
         });
     }
