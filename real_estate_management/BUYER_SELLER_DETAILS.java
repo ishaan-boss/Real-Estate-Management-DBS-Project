@@ -1,3 +1,9 @@
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Logger;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,9 +18,30 @@ public class BUYER_SELLER_DETAILS extends javax.swing.JFrame {
     /**
      * Creates new form BUYER_SELLER_DETAILS
      */
-    public BUYER_SELLER_DETAILS(P_Property prop) {
+    public BUYER_SELLER_DETAILS(P_PROPERTY prop) {
         
         initComponents();
+        int sid=prop.getSID();
+        System.out.println(sid);
+        
+        String query="select seller.name,seller.email,seller.phone from seller where seller.S_Id= "+sid;
+        try{
+            System.out.println("IN BUYER_SELLER DETAILS" +query);
+        PreparedStatement ps;
+            ResultSet rs;
+        ps= THE_CONNECTION.getTheConnection().prepareStatement(query);
+        rs=ps.executeQuery();
+        rs.next();
+        jLabelNAME.setText(rs.getString(1));
+        jLabelEMAIL.setText(rs.getString(2));
+        jLabelPHONE_NO.setText(rs.getString(3));
+               
+        
+        }
+        catch(SQLException ex){
+           Logger.getLogger(BUYER_SELLER_DETAILS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
+        }
         
         
     }
@@ -168,7 +195,7 @@ public class BUYER_SELLER_DETAILS extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BUYER_SELLER_DETAILS().setVisible(true);
+                new BUYER_SELLER_DETAILS(new P_PROPERTY()).setVisible(true);
             }
         });
     }
