@@ -41,8 +41,12 @@ public class P_PROPERTY {
     private int Bedrooms;
     private boolean RERA;
     private String Category;
-    private String Description; 
-    
+    private String Description;
+
+    public P_PROPERTY() {
+
+    }
+
     public Integer getPriceInteger() {
         return priceInteger;
     }
@@ -197,7 +201,7 @@ public class P_PROPERTY {
         String Query;
         int duration = 0;
         if (this.Category.equalsIgnoreCase("rent")){
-           Query = "SELECT Rent.Duration FROM Rent JOIN Property WHERE  Rent.P_Id =Property.P_Id AND Rent.P_Id = ?;";
+           Query = "SELECT Rent.Duration FROM Rent JOIN Property ON P_Id WHERE P_Id = ?;";
            try{
                ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
                ps.setInt(1, this.PID);
@@ -218,7 +222,7 @@ public class P_PROPERTY {
         String Query;
         int price = 0;
         if (this.Category.equalsIgnoreCase("rent")){
-           Query = "SELECT Rent.Rent_Price FROM Rent JOIN Property WHERE Rent.P_Id =Property.P_Id AND Rent.P_Id = ?;";
+           Query = "SELECT Rent.Price FROM Rent JOIN Property ON P_Id WHERE P_Id = ?;";
            try{
                ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
                ps.setInt(1, this.PID);
@@ -230,7 +234,7 @@ public class P_PROPERTY {
             }
         }
         else{
-            Query = "SELECT Sale.Price FROM Sale JOIN Property WHERE Sale.P_Id = Property.P_Id AND Sale.P_Id = ?";
+            Query = "SELECT Sale.Price FROM Sale JOIN Property ON P_Id WHERE P_Id = ?";
             try{
                 ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
                 ps.setInt(1, this.PID);
@@ -244,8 +248,62 @@ public class P_PROPERTY {
         return price;
     }
     
-    
-    
+    public int getViews(){
+        PreparedStatement ps;
+        ResultSet rs;
+        int views = 0;
+        String Query = "SELECT View FROM Rating WHERE P_Id = ?;";
+        try {
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
+            ps.setInt(1, this.PID);
+            rs = ps.executeQuery();
+            rs.next();
+            views = rs.getInt(1);
+
+        }catch (SQLException ex){
+            Logger.getLogger(P_PROPERTY.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return views;
+    }
+
+    public float getRating(){
+        PreparedStatement ps;
+        ResultSet rs;
+        float rating = 0;
+        String Query = "SELECT Rating FROM Rating WHERE P_Id = ?;";
+        try {
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
+            ps.setInt(1, this.PID);
+            rs = ps.executeQuery();
+            rs.next();
+            rating = rs.getFloat(1);
+
+        }catch (SQLException ex){
+            Logger.getLogger(P_PROPERTY.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rating;
+    }
+
+    public ArrayList<String> getReviews(){
+        ArrayList<String> reviews = new ArrayList<>();
+        PreparedStatement ps;
+        ResultSet rs;
+        String Query = "SELECT Review from Review where P_Id = ?;";
+        try{
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
+            ps.setInt(1, this.PID);
+            rs = ps.executeQuery();
+            //review r = new review();
+            while(rs.next()){
+                //r.name = rs.getString(1);
+                //r.review = rs.getString(2);
+                reviews.add(rs.getString(1));
+            }
+        }catch(Exception ex){
+            Logger.getLogger(P_PROPERTY.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return reviews;
+    }
     
     
     public P_PROPERTY(int sellerid){this.sellerid = sellerid;}
@@ -321,6 +379,7 @@ public class P_PROPERTY {
         String addQuery_Rent = "INSERT INTO Rent (P_Id,Rent_Price, Duration, R_Agr_Id) VALUES (?, ?, ?, ?);";
         String addQuery_Sale = "INSERT INTO Sale (P_Id,Price,S_Agr_Id) VALUES (?, ? , ?);";
         String addQuery_G_Map = "INSERT INTO G_Map VALUES (?, ?, ?);";
+        String add_Query_Rating = "INSERT INTO Rating VALUES(?, 0, 0);";
         try {
             
 //            THE_CONNECTION.getTheConnection().setAutoCommit(false);
@@ -387,6 +446,10 @@ public class P_PROPERTY {
              ps.setFloat(2,property.getLatitudeFloat());
              ps.setFloat(3,property.getLongitudeFloat());
               i = ps.executeUpdate();
+              
+             ps = THE_CONNECTION.getTheConnection().prepareStatement(add_Query_Rating);
+             ps.setInt(1,property.getPID());
+             i= ps.executeUpdate();
             return (i >0);
             
             
