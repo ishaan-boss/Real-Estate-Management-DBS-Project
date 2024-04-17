@@ -1,12 +1,7 @@
 
-import java.io.FileOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import org.w3c.dom.Document;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -17,19 +12,15 @@ import org.w3c.dom.Document;
  *
  * @author ishaa
  */
-public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
-    int buyerid;
-    /**
-     * Creates new form RENT_AGREEMENT_WINDOW
-     */
-    public RENT_AGREEMENT_WINDOW(int buyerid) {
-        this.buyerid = buyerid;
-        initComponents();
-//        jTextPane1.setEditable(false);
-//        jTextPane2.setEditable(false);
+public class SALE_AGREEMENT_WINDOW extends javax.swing.JFrame {
 
-        String rent_Query = "select property.p_id,property.size,property.house_no, property.street_name,property.locality,property.city, property.postal_code, property.state,  rent.rent_price , rent.duration "
-                + " from property natural join rent;";
+    /**
+     * Creates new form SALE_AGREEMENT_WINDOW
+     */
+    public SALE_AGREEMENT_WINDOW() {
+        initComponents();
+         String sale_Query = "select property.p_id,property.size,property.house_no, property.street_name,property.locality,property.city, property.postal_code, property.state,  sale.price , sale.s_agr_id "
+                + " from property natural join sale;";
         
         String seller_Query = "Select Seller.Name, Seller.Address from Seller natural join property where property.p_id =";
         String buyer_Query = "Select Buyer.name,Buyer.address from Buyer ;";
@@ -41,19 +32,18 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
         
         try {
             int a;
-            ps = THE_CONNECTION.getTheConnection().prepareStatement(rent_Query);
-            System.out.println(rent_Query);
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(sale_Query);
+           // System.out.println(sale_Query);
             rs  = ps.executeQuery();
-            //rs.next();
-            System.out.println(rs.next());
+            rs.next();
+            //System.out.println(rs.next());
             
             seller_Query = "Select Seller.Name, Seller.Address from Seller natural join property where property.p_id ="+rs.getInt("property.P_Id");
             ps = THE_CONNECTION.getTheConnection().prepareStatement(seller_Query);
             jLabel_Size.setText(rs.getString("property.size"));
-            jLabel_Price.setText(rs.getString("rent.rent_price"));
-            jLabel_Duration.setText(rs.getString("rent.duration"));
+            jLabel_Price.setText(rs.getString("sale.price"));
             a=rs.getInt("property.P_Id");
-            jLabel_PID.setText(String.valueOf(a));
+            jLabel_SAgrId.setText(String.valueOf(a));
             System.out.println(seller_Query+rs.getInt("property.P_Id"));
             rs2 = ps.executeQuery();
              rs2.next();
@@ -79,9 +69,7 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
              Logger.getLogger(P_PROPERTY.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     
-       // jLabel_SellerName.setText();
-    
-  }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,15 +81,6 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel_SellerName = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel_SellerAddress = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel_BuyerName = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -114,59 +93,32 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel_Duration = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jScrollBar1 = new javax.swing.JScrollBar();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel_Price = new javax.swing.JLabel();
+        jLabel_SellerName = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel_PID = new javax.swing.JLabel();
+        jLabel_SellerAddress = new javax.swing.JLabel();
+        jLabel_SAgrId = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel_PropertyAddressHS = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel_BuyerName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(584, 768));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(570, 790));
-
-        jLabel1.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 40)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("RENTAL AGREEMENT");
-        jLabel1.setToolTipText("");
-        jLabel1.setOpaque(true);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("This Rent Agreement is made between");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("by (Name of the Seller)");
-
-        jLabel_SellerName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel_SellerName.setText("_________");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Address");
-
-        jLabel_SellerAddress.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel_SellerAddress.setText("_______");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setText("Herein after called the Lessor / Owner, Party Of the first part");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel7.setText("AND");
-
-        jLabel_BuyerName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel_BuyerName.setText("_________");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("(Name of the buyer)");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel11.setText("called Lessee/Tenant, Party of the Second Part");
+        jLabel11.setText("called Lessee/Buyer, Party of the Second Part");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("Address");
@@ -193,58 +145,91 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
         jLabel17.setText("sq. ft. at Price(INR): ");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel18.setText("Moreover, at the tenant's request, the landlord has agreed to grant ");
+        jLabel18.setText("Moreover, at the buyer's request, the landlord has agreed to grant ");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel19.setText("demolished premises for a term of ");
+        jLabel19.setText("demolished premises permanently");
 
-        jLabel_Duration.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel_Duration.setText("__________");
+        jLabel1.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 40)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("SALE AGREEMENT");
+        jLabel1.setToolTipText("");
+        jLabel1.setOpaque(true);
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel21.setText("months in the manner from now on.");
+        jLabel21.setText("in the manner from now on.");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("This Sale Agreement is made between");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("by (Name of the Seller)");
 
         jLabel_Price.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel_Price.setText("_____");
 
+        jLabel_SellerName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_SellerName.setText("_________");
+
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setText("a lease in respect of the ");
+        jLabel8.setText("an ownership in respect of the ");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Address");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setText("Agreement ID :");
 
-        jLabel_PID.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel_PID.setText("____");
+        jLabel_SellerAddress.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_SellerAddress.setText("_______");
+
+        jLabel_SAgrId.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_SAgrId.setText("____");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setText("Herein after called the Lessor / Owner, Party of the First part");
 
         jLabel_PropertyAddressHS.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel_PropertyAddressHS.setText("________");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setText("AND");
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/100rs govt stamp.jpg"))); // NOI18N
+
+        jLabel_BuyerName.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel_BuyerName.setText("_________");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel_SAgrId, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel_PropertyAddressElse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel13)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel_PropertyAddressHS, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(16, 16, 16))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel_BuyerAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel14)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel_PID, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -257,20 +242,6 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel_BuyerName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel9)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel_Duration, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jLabel_PropertyAddressElse, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel13)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel_PropertyAddressHS, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -279,32 +250,41 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel_Price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel3)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(250, 250, 250)
-                                        .addComponent(jLabel7))
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel19)))
-                                .addGap(18, 18, 18)))
-                        .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel3)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addGap(250, 250, 250)
+                                                    .addComponent(jLabel7))
+                                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jLabel8)
+                                                    .addGap(1, 1, 1)
+                                                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel9))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel_PID))
+                    .addComponent(jLabel_SAgrId))
                 .addGap(0, 0, 0)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -350,28 +330,19 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jLabel19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_Duration)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 1356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1362, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -394,20 +365,20 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RENT_AGREEMENT_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SALE_AGREEMENT_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RENT_AGREEMENT_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SALE_AGREEMENT_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RENT_AGREEMENT_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SALE_AGREEMENT_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RENT_AGREEMENT_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SALE_AGREEMENT_WINDOW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RENT_AGREEMENT_WINDOW(0).setVisible(true);
+                new SALE_AGREEMENT_WINDOW().setVisible(true);
             }
         });
     }
@@ -434,21 +405,13 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_BuyerAddress;
     private javax.swing.JLabel jLabel_BuyerName;
-    private javax.swing.JLabel jLabel_Duration;
-    private javax.swing.JLabel jLabel_PID;
     private javax.swing.JLabel jLabel_Price;
     private javax.swing.JLabel jLabel_PropertyAddressElse;
     private javax.swing.JLabel jLabel_PropertyAddressHS;
+    private javax.swing.JLabel jLabel_SAgrId;
     private javax.swing.JLabel jLabel_SellerAddress;
     private javax.swing.JLabel jLabel_SellerName;
     private javax.swing.JLabel jLabel_Size;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollBar jScrollBar1;
     // End of variables declaration//GEN-END:variables
-
-    private static class PageSize {
-
-        public PageSize() {
-        }
-    }
 }
