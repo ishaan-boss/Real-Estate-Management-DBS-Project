@@ -3,20 +3,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+//import javax.swing.plaf.basic.BasicHTML;
+
 /**
  *
  * @author Saksham
  */
 public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
-
+    int P_Id = 0;
     /**
      * Creates new form RATING_REVIEW_WINDOW
      */
     public RATING_REVIEW_WINDOW(P_PROPERTY property) {
         initComponents();
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(520);
+        this.P_Id = property.getPID();
+        //jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
+        //jTable1.getColumnModel().getColumn(1).setPreferredWidth(520);
         jTable1.setRowHeight(25);
+        jTable1.setDefaultEditor(Object.class, null);
+        int PID = property.getPID();
+        fillTableWithReviews(PID);
         jLabel2.setText(String.valueOf(property.getViews()));
     }
 
@@ -75,14 +88,14 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Review"
+                "Review"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -93,6 +106,11 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jTable1.setShowGrid(true);
+        jTable1.setShowHorizontalLines(true);
+        jTable1.setShowVerticalLines(true);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -161,9 +179,63 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void fillTableWithReviews(int PID){
+        P_PROPERTY property = new P_PROPERTY();
+        property.setPID(PID);
+        ArrayList<String> reviews = property.getReviews();
+        String[] colNames = {"Reviews"};
+        Object[][] rows = new Object[reviews.size()][colNames.length];
+        for(int i = 0; i < reviews.size(); i++){
+            rows[i][0] = reviews.get(i);
+        }
+        DefaultTableModel model = new DefaultTableModel(rows, colNames);
+        jTable1.setModel(model);
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        float Rating = (float)jSlider1.getValue();
+        String review = jTextArea1.getText();
+        PreparedStatement ps;
+        ResultSet rs1, rs2;
+        String query1 = "SELECT View FROM Rating WHERE P_Id = ?;";
+        String query2 = "SELECT Rating FROM Rating WHERE P_Id = ?;";
+        String query3 = "UPDATE Rating SET Rating = ?, View = ? WHERE P_Id = ?;";
+        String query4 = "INSERT INTO Review VALUE (?, ?);";
+        float Rating_old = 0f;
+        int View_old = 0;
+        int Views = 0;
+        try{
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(query1);
+            ps.setInt(1, this.P_Id);
+            rs1 = ps.executeQuery();
+            rs1.next();
+            Rating_old = rs1.getFloat(1);
+            
+            ps = THE_CONNECTION.getTheConnection().prepareCall(query2);
+            ps.setInt(1, this.P_Id);
+            rs2 = ps.executeQuery();
+            rs2.next();
+            View_old = rs1.getInt(1);
+            
+            Views = View_old + 1;
+            Rating = (((float)(Rating + Rating_old*View_old))/(float)Views);
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(query3);
+            ps.setFloat(1, Rating);
+            ps.setInt(2, Views);
+            ps.setInt(3, this.P_Id);
+            ps.executeUpdate();
+            
+            if(!review.equalsIgnoreCase("")){
+                ps = THE_CONNECTION.getTheConnection().prepareStatement(query4);
+                ps.setInt(1, this.P_Id);
+                ps.setString(2, review);
+                ps.executeUpdate();
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(P_PROPERTY.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
