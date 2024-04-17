@@ -18,9 +18,9 @@ int buyerid;
      * Creates new form BUYER_DASHBOARD
      */
 
-    BUYER_SHOW_PROPERTIES_WINDOW show_window ;
-    BUYER_DASHBOARD_BUY_VS_RENT buy_rent_window;
-//    BUYER_DASHBOARD_EMICALCULATOR emi_window;
+    BUYER_SHOW_PROPERTIES_WINDOW show_window = new BUYER_SHOW_PROPERTIES_WINDOW(buyerid) ;
+    BUYER_DASHBOARD_BUY_VS_RENT buy_rent_window = new BUYER_DASHBOARD_BUY_VS_RENT();
+    BUYER_DASHBOARD_EMICALCULATOR emi_window = new BUYER_DASHBOARD_EMICALCULATOR();
     public BUYER_DASHBOARD(int bid) {
         buyerid = bid;
         initComponents();
@@ -59,7 +59,7 @@ int buyerid;
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel_Buyer_Dashboard_Icon.setBackground(new java.awt.Color(204, 255, 255));
@@ -112,7 +112,7 @@ int buyerid;
         jPanelSpace.setLayout(jPanelSpaceLayout);
         jPanelSpaceLayout.setHorizontalGroup(
             jPanelSpaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+            .addGap(0, 776, Short.MAX_VALUE)
         );
         jPanelSpaceLayout.setVerticalGroup(
             jPanelSpaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,8 +130,8 @@ int buyerid;
                     .addComponent(jLabelEMI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelShowProperties, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel_Buyer_Dashboard_Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanelSpace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,9 +153,16 @@ int buyerid;
 
     private void jLabelBuyRentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBuyRentMouseClicked
         // TODO add your handling code here:
+        if(buy_rent_window!= null)
+            buy_rent_window.dispose();
+        if(show_window!= null)
+            show_window.dispose();
+         if(emi_window!=null)
+            emi_window.dispose();
         buy_rent_window  = new BUYER_DASHBOARD_BUY_VS_RENT();
         if(show_window!=null)show_window.setVisible(false);
-//        if(emi_window!=null)emi_window.setVisible(false);
+        
+        if(emi_window!=null)emi_window.setVisible(false);
         buy_rent_window.setLocationRelativeTo(jPanelSpace);
         if(buy_rent_window!=null)buy_rent_window.setVisible(true);
         //buy_rent_window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -163,6 +170,12 @@ int buyerid;
 
     private void jLabelShowPropertiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelShowPropertiesMouseClicked
         // TODO add your handling code here:
+        if(show_window!= null)
+            show_window.dispose();
+        if(buy_rent_window!= null)
+            buy_rent_window.dispose();
+        if(emi_window!=null)
+            emi_window.dispose();
         show_window  = new BUYER_SHOW_PROPERTIES_WINDOW(buyerid);
         if(buy_rent_window!=null)show_window.setVisible(false);
         //if(emi_window!=null)emi_window.setVisible(false);
@@ -174,6 +187,18 @@ int buyerid;
 
     private void jLabelEMIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEMIMouseClicked
         // TODO add your handling code here:
+        if(emi_window!=null)
+            emi_window.dispose();
+        if(show_window!= null)
+            show_window.dispose();
+        if(buy_rent_window!= null)
+            buy_rent_window.dispose();
+        emi_window  = new BUYER_DASHBOARD_EMICALCULATOR();
+        if(show_window!=null)show_window.setVisible(false);
+        
+        if(buy_rent_window!=null)buy_rent_window.setVisible(false);
+        emi_window.setLocationRelativeTo(jPanelSpace);
+        if(emi_window!=null)emi_window.setVisible(true);
     }//GEN-LAST:event_jLabelEMIMouseClicked
 
     /**

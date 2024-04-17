@@ -197,7 +197,7 @@ public class P_PROPERTY {
         String Query;
         int duration = 0;
         if (this.Category.equalsIgnoreCase("rent")){
-           Query = "SELECT Rent.Duration FROM Rent JOIN Property ON P_Id WHERE P_Id = ?;";
+           Query = "SELECT Rent.Duration FROM Rent JOIN Property WHERE  Rent.P_Id =Property.P_Id AND Rent.P_Id = ?;";
            try{
                ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
                ps.setInt(1, this.PID);
@@ -218,7 +218,7 @@ public class P_PROPERTY {
         String Query;
         int price = 0;
         if (this.Category.equalsIgnoreCase("rent")){
-           Query = "SELECT Rent.Price FROM Rent JOIN Property ON P_Id WHERE P_Id = ?;";
+           Query = "SELECT Rent.Rent_Price FROM Rent JOIN Property WHERE Rent.P_Id =Property.P_Id AND Rent.P_Id = ?;";
            try{
                ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
                ps.setInt(1, this.PID);
@@ -230,7 +230,7 @@ public class P_PROPERTY {
             }
         }
         else{
-            Query = "SELECT Sale.Price FROM Sale JOIN Property ON P_Id WHERE P_Id = ?";
+            Query = "SELECT Sale.Price FROM Sale JOIN Property WHERE Sale.P_Id = Property.P_Id AND Sale.P_Id = ?";
             try{
                 ps = THE_CONNECTION.getTheConnection().prepareStatement(Query);
                 ps.setInt(1, this.PID);

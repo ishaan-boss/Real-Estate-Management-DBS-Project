@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -23,12 +23,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="794" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="776" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="696" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="1" pref="768" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -77,7 +77,7 @@
                                           <Component id="jSpinner_rate" min="-2" pref="94" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jSpinner_duration" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <Component id="jSpinner_amount" alignment="1" pref="159" max="32767" attributes="0"/>
+                                      <Component id="jSpinner_amount" alignment="1" pref="141" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -147,10 +147,10 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabel_result" pref="89" max="32767" attributes="0"/>
+                  <Component id="jLabel_result" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
-              <Component id="jLabel1" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

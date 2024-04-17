@@ -27,7 +27,7 @@ public class SELLER_DASHBOARD extends javax.swing.JFrame {
             
             sellerid = sid;
             add_window = new ADD_PROPERTY_SELLER_WINDOW(sellerid);
-            System.out.println("INSIDE DASHBOARD"+sellerid);
+//            System.out.println("INSIDE DASHBOARD"+sellerid);
         initComponents();
         
 //        

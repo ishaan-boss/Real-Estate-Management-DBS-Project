@@ -66,16 +66,16 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
         jImageListBuyer.setModel(listModel);
 }
 
-//public ImageIcon resizeImage(String filePath,byte [] byteImage)
-//    {
-//        ImageIcon pic;
-//        if(byteImage!= null) pic = new ImageIcon(byteImage);
-//        else pic = new ImageIcon(filePath);
-//
-//        Image img = pic.getImage().getScaledInstance(392, 216,Image.SCALE_SMOOTH);
-//        ImageIcon image = new ImageIcon(img);
-//        return image;
-//   }
+public ImageIcon resizeImage(String filePath,byte [] byteImage)
+    {
+        ImageIcon pic;
+        if(byteImage!= null) pic = new ImageIcon(byteImage);
+        else pic = new ImageIcon(filePath);
+
+        Image img = pic.getImage().getScaledInstance(392, 216,Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(img);
+        return image;
+   }
     
     
 
@@ -131,6 +131,7 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1024, 768));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -304,6 +305,7 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
         jLabel29.setOpaque(true);
 
         jLabelPhotogograph.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelPhotogograph.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabelPhotogograph.setOpaque(true);
 
         jLabelDescriptionFill.setBackground(new java.awt.Color(255, 255, 255));
@@ -334,6 +336,7 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
         jLabelDurationFill.setText(" ");
         jLabelDurationFill.setOpaque(true);
 
+        jImageListBuyer.setBackground(new java.awt.Color(204, 255, 255));
         jImageListBuyer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jImageListBuyerMouseClicked(evt);
@@ -452,8 +455,8 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelPhotogograph, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jLabelPhotogograph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -506,7 +509,7 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelState, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
                             .addComponent(jLabelStateFill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabelPriceFill, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                            .addComponent(jLabelPriceFill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -537,10 +540,11 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -549,11 +553,11 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
 
     private void jImageListBuyerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jImageListBuyerMouseClicked
         // TODO add your handling code here:
-//        String selectedListItem = String.valueOf(jImageListBuyer.getSelectedValue());
-//        Integer imageId = Integer.valueOf(selectedListItem);
-//        byte[] image = new P_PROPERTY().getImageById(imageId);
-//        resizeImage("",image);
-//        jLabelPhotogograph.setIcon(resizeImage("", image));
+        String selectedListItem = String.valueOf(jImageListBuyer.getSelectedValue());
+        Integer imageId = Integer.valueOf(selectedListItem);
+        byte[] image = new P_PROPERTY(0).getImageById(imageId);
+        resizeImage("",image);
+        jLabelPhotogograph.setIcon(resizeImage("", image));
                                               
     }//GEN-LAST:event_jImageListBuyerMouseClicked
 
