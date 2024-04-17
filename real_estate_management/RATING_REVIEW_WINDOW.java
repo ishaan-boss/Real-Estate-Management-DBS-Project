@@ -12,12 +12,12 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
     /**
      * Creates new form RATING_REVIEW_WINDOW
      */
-    public RATING_REVIEW_WINDOW() {
+    public RATING_REVIEW_WINDOW(P_PROPERTY property) {
         initComponents();
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(520);
         jTable1.setRowHeight(25);
-        
+        jLabel2.setText(String.valueOf(property.getViews()));
     }
 
     /**
@@ -196,7 +196,7 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RATING_REVIEW_WINDOW().setVisible(true);
+                new RATING_REVIEW_WINDOW(new P_PROPERTY()).setVisible(true);
             }
         });
     }
