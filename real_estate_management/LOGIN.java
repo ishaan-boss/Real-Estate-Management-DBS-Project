@@ -139,6 +139,7 @@ public class LOGIN extends javax.swing.JFrame {
 
     private void jButton_Login_SellerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Login_SellerActionPerformed
         // TODO add your handling code here:
+        
         SELLER_LOGIN_WINDOW w1 = new SELLER_LOGIN_WINDOW();
         w1.setVisible(true);
         this.dispose();

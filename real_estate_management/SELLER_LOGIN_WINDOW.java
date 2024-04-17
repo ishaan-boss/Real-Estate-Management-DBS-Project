@@ -246,12 +246,14 @@ public class SELLER_LOGIN_WINDOW extends javax.swing.JFrame {
                 ps.setString(2, password);
                 rs=ps.executeQuery();
                 if (rs.next()){
-                    JOptionPane.showMessageDialog(null,"WE NEED TO SHOW THE MAIN FORM TO THE USER");
                     SID = rs.getInt("S_Id");
-
+                    System.out.println("INSIDE SELLER LOGIN"+SID);
+                    SELLER_DASHBOARD obj = new SELLER_DASHBOARD(SID);
+                    obj.setVisible(true);
+                    this.dispose();
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"WE NEED TO SHOW ERROR MESSAGE");
+                    JOptionPane.showMessageDialog(null,"Invalid Username or Password.");
                 }
             }
             catch (SQLException ex){

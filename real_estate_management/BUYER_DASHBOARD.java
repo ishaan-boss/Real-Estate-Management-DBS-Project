@@ -13,11 +13,16 @@ import javax.swing.*;
  * @author Mudit
  */
 public class BUYER_DASHBOARD extends javax.swing.JFrame {
-
+int buyerid;
     /**
      * Creates new form BUYER_DASHBOARD
      */
-    public BUYER_DASHBOARD() {
+
+    BUYER_SHOW_PROPERTIES_WINDOW show_window ;
+    BUYER_DASHBOARD_BUY_VS_RENT buy_rent_window;
+//    BUYER_DASHBOARD_EMICALCULATOR emi_window;
+    public BUYER_DASHBOARD(int bid) {
+        buyerid = bid;
         initComponents();
         this.setLocationRelativeTo(null);
         //Icon i = new javax.swing.ImageIcon(getClass().getResource("images/buy.png"));
@@ -35,12 +40,24 @@ public class BUYER_DASHBOARD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jLabel_Buyer_Dashboard_Icon = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelShowProperties = new javax.swing.JLabel();
+        jLabelEMI = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jLabelBuyRent = new javax.swing.JLabel();
+        jPanelSpace = new javax.swing.JPanel();
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 768, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -49,46 +66,56 @@ public class BUYER_DASHBOARD extends javax.swing.JFrame {
         jLabel_Buyer_Dashboard_Icon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         jLabel_Buyer_Dashboard_Icon.setOpaque(true);
 
-        jLabel2.setBackground(new java.awt.Color(255, 204, 153));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Show Properties");
-        jLabel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
-        jLabel2.setOpaque(true);
+        jLabelShowProperties.setBackground(new java.awt.Color(255, 204, 153));
+        jLabelShowProperties.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabelShowProperties.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelShowProperties.setText("Show Properties");
+        jLabelShowProperties.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jLabelShowProperties.setOpaque(true);
+        jLabelShowProperties.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelShowPropertiesMouseClicked(evt);
+            }
+        });
 
-        jLabel3.setBackground(new java.awt.Color(255, 204, 153));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("EMI Calculator");
-        jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
-        jLabel3.setOpaque(true);
+        jLabelEMI.setBackground(new java.awt.Color(255, 204, 153));
+        jLabelEMI.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabelEMI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelEMI.setText("EMI Calculator");
+        jLabelEMI.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jLabelEMI.setOpaque(true);
+        jLabelEMI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelEMIMouseClicked(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(204, 255, 255));
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         jLabel4.setOpaque(true);
 
-        jLabel5.setBackground(new java.awt.Color(255, 204, 153));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Buy vs Rent");
-        jLabel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
-        jLabel5.setOpaque(true);
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelBuyRent.setBackground(new java.awt.Color(255, 204, 153));
+        jLabelBuyRent.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabelBuyRent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelBuyRent.setText("Buy vs Rent");
+        jLabelBuyRent.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jLabelBuyRent.setOpaque(true);
+        jLabelBuyRent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                jLabelBuyRentMouseClicked(evt);
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelSpace.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelSpaceLayout = new javax.swing.GroupLayout(jPanelSpace);
+        jPanelSpace.setLayout(jPanelSpaceLayout);
+        jPanelSpaceLayout.setHorizontalGroup(
+            jPanelSpaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 768, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelSpaceLayout.setVerticalGroup(
+            jPanelSpaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -98,38 +125,56 @@ public class BUYER_DASHBOARD extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelBuyRent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelEMI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelShowProperties, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel_Buyer_Dashboard_Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel_Buyer_Dashboard_Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelShowProperties, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelEMI, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelBuyRent, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    private void jLabelBuyRentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBuyRentMouseClicked
         // TODO add your handling code here:
-        BUYER_DASHBOARD_BUY_VS_RENT w = new BUYER_DASHBOARD_BUY_VS_RENT();
-        w.setVisible(true);
-        w.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_jLabel5MouseClicked
+        buy_rent_window  = new BUYER_DASHBOARD_BUY_VS_RENT();
+        if(show_window!=null)show_window.setVisible(false);
+//        if(emi_window!=null)emi_window.setVisible(false);
+        buy_rent_window.setLocationRelativeTo(jPanelSpace);
+        if(buy_rent_window!=null)buy_rent_window.setVisible(true);
+        //buy_rent_window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabelBuyRentMouseClicked
+
+    private void jLabelShowPropertiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelShowPropertiesMouseClicked
+        // TODO add your handling code here:
+        show_window  = new BUYER_SHOW_PROPERTIES_WINDOW(buyerid);
+        if(buy_rent_window!=null)show_window.setVisible(false);
+        //if(emi_window!=null)emi_window.setVisible(false);
+        show_window.setLocationRelativeTo(jPanelSpace);
+        if(show_window!=null)show_window.setVisible(true);
+//        show_window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //show_window.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabelShowPropertiesMouseClicked
+
+    private void jLabelEMIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEMIMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelEMIMouseClicked
 
     /**
      * @param args the command line arguments
@@ -161,17 +206,18 @@ public class BUYER_DASHBOARD extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BUYER_DASHBOARD().setVisible(true);
+                new BUYER_DASHBOARD(0).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelBuyRent;
+    private javax.swing.JLabel jLabelEMI;
+    private javax.swing.JLabel jLabelShowProperties;
     private javax.swing.JLabel jLabel_Buyer_Dashboard_Icon;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelSpace;
     // End of variables declaration//GEN-END:variables
 }

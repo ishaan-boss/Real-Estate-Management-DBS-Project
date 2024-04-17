@@ -55,7 +55,7 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
             jLabelDuration.setVisible(false);
         }
  //adding Images to list
-    HashMap<byte[], Integer> imagesListMap = new P_PROPERTY().propertyImagesList(prop.getPID());
+    HashMap<byte[], Integer> imagesListMap = new P_PROPERTY(0).propertyImagesList(prop.getPID());
     DefaultListModel listModel = new DefaultListModel();
     int i = 0;
     for(Integer id: imagesListMap.values())
@@ -334,11 +334,6 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
         jLabelDurationFill.setText(" ");
         jLabelDurationFill.setOpaque(true);
 
-        jImageListBuyer.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jImageListBuyer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jImageListBuyerMouseClicked(evt);
@@ -592,7 +587,7 @@ public class BUYER_SHOW_PROPERTY_VIEW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BUYER_SHOW_PROPERTY_VIEW(new P_PROPERTY()).setVisible(true);
+                new BUYER_SHOW_PROPERTY_VIEW(new P_PROPERTY(0)).setVisible(true);
             }
         });
     }

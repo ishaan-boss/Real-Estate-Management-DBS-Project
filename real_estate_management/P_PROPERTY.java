@@ -17,11 +17,11 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author ishaa
+ * @author ishaan
  */
 public class P_PROPERTY {
 
-   
+   int sellerid;
     private Integer priceInteger;
     private Float LatitudeFloat;
     private Float LongitudeFloat;
@@ -130,11 +130,10 @@ public class P_PROPERTY {
         this.PID = PID;
         
     }
-    public void setSID()
+    public void setSID(int sid)
     {
         //create object to get particular SId
-        SELLER_LOGIN_WINDOW obj = new SELLER_LOGIN_WINDOW();
-        this.SID = obj.getSID();
+        this.SID = sid;
     }
     public void setName(String name) {
         this.name = name;
@@ -249,10 +248,10 @@ public class P_PROPERTY {
     
     
     
-    public P_PROPERTY(){}
+    public P_PROPERTY(int sellerid){this.sellerid = sellerid;}
     
     public P_PROPERTY properties_feature(P_PROPERTY property, Integer priceInteger, Float LatitudeFloat, Float LongitudeFloat, Integer DurationInteger){
-        
+//        System.out.println("INSIDE FEATURES")+;
         property.priceInteger = priceInteger;
         property.LatitudeFloat= LatitudeFloat;
         property.LongitudeFloat= LongitudeFloat;
@@ -261,8 +260,11 @@ public class P_PROPERTY {
         return property;
     }
     
-    public P_PROPERTY(String name, int size, String status, String HouseNo, int Floor, String StreetName, String Locality, String City, String State, int PostalCode, int Bedrooms, boolean RERA, String Category, String Description) {
-        setSID();
+    public P_PROPERTY(int SID, String name, int size, String status, String HouseNo, int Floor, String StreetName, String Locality, String City, String State, int PostalCode, int Bedrooms, boolean RERA, String Category, String Description) {
+        
+        sellerid = SID;
+        this.SID = SID;
+        System.out.println("inside of constructor:"+sellerid);
         this.name = name;
         this.size = size;
         this.status = status;
@@ -310,6 +312,8 @@ public class P_PROPERTY {
     
     public boolean addNewProperty(P_PROPERTY property) throws SQLException
     {
+//        int sid = getSID();
+       // System.out.println(sid);
         PreparedStatement ps,ps1;
         ResultSet rs,rs1;
         String getPIDQuery = "SELECT MAX(P_Id) AS ID FROM PROPERTY;";
@@ -423,6 +427,7 @@ public class P_PROPERTY {
         String editQuery_G_Map = "UPDATE G_Map SET Latitude = ?, Longitude = ?;";
         try {
             ps =  THE_CONNECTION.getTheConnection().prepareStatement(editQuery);
+            System.out.println("IN P_PROPERTY"+property.getSID());
             ps.setInt(1, property.getSID());
             ps.setString(2, property.getName());
             ps.setInt(3, property.getSize());
@@ -509,22 +514,68 @@ public class P_PROPERTY {
         }
     }
     
-    //funciton to return an arralist of properties
-    
-    public ArrayList<P_PROPERTY> propertiesList()
+    public ArrayList<P_PROPERTY> propertiesListAll()
     {
         ArrayList<P_PROPERTY> list  = new ArrayList<>();
-        String selectQuery = "SELECT * FROM property;";
+        String selectQuery = "SELECT * FROM property";
+        System.err.println("IN P PROPERTY"+selectQuery);
         PreparedStatement ps = null;
         ResultSet rs;
         
         try{
             ps = THE_CONNECTION.getTheConnection().prepareStatement(selectQuery);
+//            ps.setInt(1,this.SID );
         rs = ps.executeQuery();
         P_PROPERTY property;
         int i =0;
         while(rs.next()){
-           property = new P_PROPERTY(rs.getString("House_Name"),
+           property = new P_PROPERTY(rs.getInt("S_Id"),
+                                     rs.getString("House_Name"),
+                                     rs.getInt("Size"),
+                                     rs.getString("Status"),
+                                     rs.getString("House_No"),
+                                     rs.getInt("Floor"),
+                                     rs.getString("Street_Name"),
+                                     rs.getString("Locality"),
+                                     rs.getString("City"),
+                                     rs.getString("State"),
+                                     rs.getInt("Postal_Code"),
+                                     rs.getInt("BHK"),
+                                     isRERABoolean(rs.getString("Is_RERA_Approved")),
+                                     rs.getString("Listing_Category"),
+                                     rs.getString("Description"));
+           
+           property.setPID(rs.getInt("P_Id"));
+           list.add(property);
+        }
+        
+        }catch(SQLException ex){
+            Logger.getLogger(THE_CONNECTION.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    
+        return list;
+    }
+    
+    
+    
+    //funciton to return an arralist of properties by sellerid
+    public ArrayList<P_PROPERTY> propertiesList()
+    {
+        ArrayList<P_PROPERTY> list  = new ArrayList<>();
+        String selectQuery = "SELECT * FROM property where s_id = "+sellerid;
+        System.err.println("IN P PROPERTY"+selectQuery);
+        PreparedStatement ps = null;
+        ResultSet rs;
+        
+        try{
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(selectQuery);
+//            ps.setInt(1,this.SID );
+        rs = ps.executeQuery();
+        P_PROPERTY property;
+        int i =0;
+        while(rs.next()){
+           property = new P_PROPERTY(rs.getInt("S_Id"),
+                                     rs.getString("House_Name"),
                                      rs.getInt("Size"),
                                      rs.getString("Status"),
                                      rs.getString("House_No"),
@@ -655,7 +706,7 @@ public class P_PROPERTY {
     }
     
     public P_PROPERTY getPropertyByPID(int PID){
-        P_PROPERTY property = new P_PROPERTY();
+        P_PROPERTY property = new P_PROPERTY(sellerid);
         PreparedStatement ps;
         ResultSet rs;
         String Query = "SELECT * FROM property WHERE P_Id = ?;";
@@ -664,7 +715,8 @@ public class P_PROPERTY {
             ps.setInt(1, PID);
             rs = ps.executeQuery();
             if(rs.next())
-            property = new P_PROPERTY(rs.getString("House_Name"),
+            property = new P_PROPERTY(rs.getInt("S_Id"),
+                                     rs.getString("House_Name"),
                                      rs.getInt("Size"),
                                      rs.getString("Status"),
                                      rs.getString("House_No"),
@@ -718,7 +770,8 @@ public class P_PROPERTY {
             rs = ps.executeQuery();
             P_PROPERTY property;
             while(rs.next()){
-                property = new P_PROPERTY(rs.getString("House_Name"),
+                property = new P_PROPERTY(rs.getInt("S_Id"),
+                        rs.getString("House_Name"),
                         rs.getInt("Size"),
                         rs.getString("Status"),
                         rs.getString("House_No"),

@@ -22,14 +22,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Aayush
  */
+
 public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
 
     /**
      * Creates new form PROPERTIES_IMAGES_WINDOW
      */
     int propertyId;
+    int sellerid;
     String property_image_path = "";
-    public PROPERTIES_IMAGES_WINDOW() {
+    public PROPERTIES_IMAGES_WINDOW(int sellerid) {
+        this.sellerid = sellerid;
         initComponents();
         //set border to jpanel title
         Border panel_title_border = BorderFactory.createMatteBorder(0,0,3,0, new Color(255,255,255));
@@ -54,7 +57,7 @@ public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
     //fill table with property data
     public void fillPropertiesTableWithPropertyData()
     {
-        P_PROPERTY property = new P_PROPERTY();
+        P_PROPERTY property = new P_PROPERTY(sellerid);
         ArrayList<P_PROPERTY> propertyList = property.propertiesList();
         
         //columns and rows
@@ -115,7 +118,8 @@ public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
         propertiesTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         imagesList = new javax.swing.JList<>();
-
+	setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -291,7 +295,7 @@ public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -318,7 +322,7 @@ public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
 
     private void addImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addImageActionPerformed
         // TODO add your handling code here:
-        P_PROPERTY property = new P_PROPERTY();
+        P_PROPERTY property = new P_PROPERTY(sellerid);
         
         if(propertyId!=0)
         {    
@@ -348,7 +352,7 @@ public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
 
                 if(yes_or_no == JOptionPane.YES_OPTION)
                 {
-                    if(new P_PROPERTY().removeImageById(imageId))
+                    if(new P_PROPERTY(sellerid).removeImageById(imageId))
                     {
                         JOptionPane.showMessageDialog(null, "Property Image Deleted", "Delete Image", 1);
                         imageLabel.setIcon(null);  
@@ -381,7 +385,7 @@ public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
         //display image whichever is selected by creating a funtion to pair image by id
         String selectedListItem = String.valueOf(imagesList.getSelectedValue());
         Integer imageId = Integer.valueOf(selectedListItem);
-        byte[] image = new P_PROPERTY().getImageById(imageId);
+        byte[] image = new P_PROPERTY(sellerid).getImageById(imageId);
         resizeImage("",image);
         imageLabel.setIcon(resizeImage("", image));
         
@@ -390,7 +394,7 @@ public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
     //function to fill the Jlist with the selected property images
     public void fillTypeList ()
     {
-    HashMap<byte[], Integer> imagesListMap = new P_PROPERTY().propertyImagesList(propertyId);
+    HashMap<byte[], Integer> imagesListMap = new P_PROPERTY(sellerid).propertyImagesList(propertyId);
     DefaultListModel listModel = new DefaultListModel();
     int i = 0;
     for(Integer id: imagesListMap.values())
@@ -428,7 +432,7 @@ public class PROPERTIES_IMAGES_WINDOW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PROPERTIES_IMAGES_WINDOW().setVisible(true);
+                new PROPERTIES_IMAGES_WINDOW(0).setVisible(true);
             }
         });
     }

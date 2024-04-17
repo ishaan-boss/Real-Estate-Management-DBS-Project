@@ -16,11 +16,12 @@ import javax.swing.plaf.basic.BasicHTML;
  * @author Mudit
  */
 public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
-
+    int buyerid;
     /**
      * Creates new form BUYER_SHOW_PROPERTIES_WINDOW
      */
-    public BUYER_SHOW_PROPERTIES_WINDOW() {
+    public BUYER_SHOW_PROPERTIES_WINDOW(int bid) {
+        buyerid = bid;
         initComponents();
         fillTableWithPropertyData();
         jTable1.setDefaultEditor(Object.class, null);
@@ -42,6 +43,8 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,7 +118,7 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,8 +130,7 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
                     .addComponent(jComboBox1)
                     .addComponent(jComboBox2))
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,7 +153,7 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         String filter = jComboBox1.getSelectedItem().toString();
         PreparedStatement ps;
         ResultSet rs;
-        P_PROPERTY property = new P_PROPERTY();
+        P_PROPERTY property = new P_PROPERTY(0);
         ArrayList<P_PROPERTY> propertyList = property.filterProperty(filter, sort);
         
         String[] colNames = {"PID", "House_Name", "Category", "Size", "BHK", "Locality", "City", "State"};
@@ -179,7 +181,7 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         String filter = jComboBox1.getSelectedItem().toString();
         PreparedStatement ps;
         ResultSet rs;
-        P_PROPERTY property = new P_PROPERTY();
+        P_PROPERTY property = new P_PROPERTY(0);
         ArrayList<P_PROPERTY> propertyList = property.filterProperty(filter, sort);
         
         String[] colNames = {"PID", "House_Name", "Category", "Size", "BHK", "Locality", "City", "State"};
@@ -211,7 +213,7 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
         int PID = (int)jTable1.getValueAt(row, 0);
-        P_PROPERTY property = new P_PROPERTY();
+        P_PROPERTY property = new P_PROPERTY(0);
         property = property.getPropertyByPID(PID);
         BUYER_SHOW_PROPERTY_VIEW w = new BUYER_SHOW_PROPERTY_VIEW(property);
         w.setVisible(true);
@@ -219,8 +221,8 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void fillTableWithPropertyData(){
-        P_PROPERTY property = new P_PROPERTY();
-        ArrayList<P_PROPERTY> propertyList = property.propertiesList();
+        P_PROPERTY property = new P_PROPERTY(0);
+        ArrayList<P_PROPERTY> propertyList = property.propertiesListAll();
         
         String[] colNames = {"PID", "House_Name", "Category", "Size", "BHK", "Locality", "City", "State"};
         Object[][] rows = new Object[propertyList.size()][colNames.length];
@@ -270,7 +272,7 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BUYER_SHOW_PROPERTIES_WINDOW().setVisible(true);
+                new BUYER_SHOW_PROPERTIES_WINDOW(0).setVisible(true);
             }
         });
         

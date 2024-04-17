@@ -1,8 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package real_estate_management;
 
 import javax.swing.JFrame;
 
@@ -192,7 +190,7 @@ public class BUYER_DASHBORD_EMICALCULATOR extends javax.swing.JFrame {
         System.out.println(totalAfter);
         BUYER_EMI_RESULT w5=new BUYER_EMI_RESULT(monthlyInstallment,totalAfter);
         w5.setVisible(true);
-        w5.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        w5.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         
         
         

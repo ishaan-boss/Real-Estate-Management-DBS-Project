@@ -19,8 +19,11 @@ public class ADD_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
     /**
      * Creates new form PROPERTY_TYPE_WINDOW
      */
-    public ADD_PROPERTY_SELLER_WINDOW() {
+    int sellerid;
+    public ADD_PROPERTY_SELLER_WINDOW(int sid) {
         initComponents();
+        sellerid = sid;
+        System.out.println("INSIDE ADD"+sellerid);
         
         //set border to the jpanel title
         Border panel_title_border = BorderFactory.createMatteBorder(0, 0, 3, 0, new Color(125,125,125));
@@ -102,7 +105,8 @@ public class ADD_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(724, 768));
@@ -460,8 +464,9 @@ public class ADD_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
             
             if (jCheckBox_isRERAApproved.isSelected()) isRERAApproved = true;
             
-            P_PROPERTY property = new P_PROPERTY( name, size, status, HouseNo, Floor, StreetName, Locality,City, State, PostalCode, Bedrooms,isRERAApproved ,  Category, Description);
-            
+            P_PROPERTY property = new P_PROPERTY(sellerid, name, size, status, HouseNo, Floor, StreetName, Locality,City, State, PostalCode, Bedrooms,isRERAApproved ,  Category, Description);
+//            property.setSID(sellerid);
+                System.out.println("CAlling p_property constructor"+sellerid);
             //if ("Sell".equals(Category)) DurationInteger=0;
             if(Category.equals("Rent")){
                 System.out.println("Rent");
@@ -470,7 +475,7 @@ public class ADD_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
             
             property = property.properties_feature(property, priceInteger, LatitudeFloat, LongitudeFloat, DurationInteger);
             
-            if (new P_PROPERTY().addNewProperty(property)) {
+            if (new P_PROPERTY(sellerid).addNewProperty(property)) {
                  
                  JOptionPane.showMessageDialog(null, "New Property Added to The System", "Add Property", 1);
             }
@@ -557,7 +562,7 @@ public class ADD_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
-                new ADD_PROPERTY_SELLER_WINDOW().setVisible(true);
+                new ADD_PROPERTY_SELLER_WINDOW(0).setVisible(true);
             }
         });
     }

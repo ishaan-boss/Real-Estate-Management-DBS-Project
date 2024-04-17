@@ -18,7 +18,9 @@ public class SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
     /**
      * Creates new form SHOW_PROPERTIES_WINDOW
      */
-    public SHOW_PROPERTIES_WINDOW() {
+    int sellerid;
+    public SHOW_PROPERTIES_WINDOW(int sellerid) {
+        this.sellerid = sellerid;
         initComponents();
         jTable1.setDefaultEditor(Object.class, null);
         // fill the table
@@ -54,7 +56,7 @@ public class SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
     //funstion to populate the table with properties data
     public void fillJtableWithPropertyData()
     {
-        P_PROPERTY property = new P_PROPERTY();
+        P_PROPERTY property = new P_PROPERTY(sellerid);
         ArrayList<P_PROPERTY> propertyList = property.propertiesList();
         
         //columns and rows
@@ -64,7 +66,6 @@ public class SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         //add Data from list to rows
         for(int i =0;i<propertyList.size();i++)
         {
-            
             rows[i][0] = propertyList.get(i).getPID();
             rows[i][1] = propertyList.get(i).getName();
             rows[i][2] = propertyList.get(i).getSize();
@@ -108,7 +109,8 @@ public class SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         jTextArea_Description = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-
+	setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane3.setViewportView(jTextArea2);
@@ -240,7 +242,7 @@ public class SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SHOW_PROPERTIES_WINDOW().setVisible(true);
+                new SHOW_PROPERTIES_WINDOW(0).setVisible(true);
             }
         });
     }

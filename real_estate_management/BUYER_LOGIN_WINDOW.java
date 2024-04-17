@@ -18,8 +18,7 @@ import javax.swing.border.Border;
  * @author Mudit
  */
 public class BUYER_LOGIN_WINDOW extends javax.swing.JFrame {
-    int SID=0;
-
+    int buyerid;
     /**
      * Creates new form LOGIN_WINDOW
      */
@@ -235,7 +234,7 @@ public class BUYER_LOGIN_WINDOW extends javax.swing.JFrame {
         String  password= String.valueOf(jPasswordField1.getPassword());
         PreparedStatement ps;
         ResultSet rs;
-        String selectQuery="SELECT S_Id from Seller WHERE Email=? AND Password =?";
+        String selectQuery="SELECT B_Id from Buyer WHERE Email=? AND Password =?";
         if(username.trim().toLowerCase().equals("username") || password.trim().toLowerCase().equals("password")){
             JOptionPane.showMessageDialog(null,"ENTER YOUR USERNAME AND PASSWORD FIRST");
         }
@@ -246,12 +245,16 @@ public class BUYER_LOGIN_WINDOW extends javax.swing.JFrame {
                 ps.setString(2, password);
                 rs=ps.executeQuery();
                 if (rs.next()){
-                    JOptionPane.showMessageDialog(null,"WE NEED TO SHOW THE MAIN FORM TO THE USER");
-                    SID = rs.getInt("S_Id");
+                    buyerid = rs.getInt("B_Id");
+//                    JOptionPane.showMessageDialog(null,"WE NEED TO SHOW THE MAIN FORM TO THE USER");
+                    BUYER_DASHBOARD obj = new BUYER_DASHBOARD(buyerid);
+                    obj.setVisible(true);
+                    this.dispose();
+                    buyerid = rs.getInt("B_Id");
 
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"WE NEED TO SHOW ERROR MESSAGE");
+                    JOptionPane.showMessageDialog(null,"Invalid Username or Password.");
                 }
             }
             catch (SQLException ex){
@@ -269,8 +272,8 @@ public class BUYER_LOGIN_WINDOW extends javax.swing.JFrame {
         this.dispose();
     }
 
-    public int getSID(){
-        return SID;
+    public int getBID(){
+        return buyerid;
     }
 
 

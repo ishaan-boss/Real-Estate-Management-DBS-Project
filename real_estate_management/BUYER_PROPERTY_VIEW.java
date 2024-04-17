@@ -528,7 +528,7 @@ public class BUYER_PROPERTY_VIEW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BUYER_PROPERTY_VIEW(new P_PROPERTY()).setVisible(true);
+                new BUYER_PROPERTY_VIEW(new P_PROPERTY(0)).setVisible(true);
             }
         });
     }
