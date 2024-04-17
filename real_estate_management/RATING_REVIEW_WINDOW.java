@@ -213,7 +213,7 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
             rs1.next();
             Rating_old = rs1.getFloat(1);
             
-            ps = THE_CONNECTION.getTheConnection().prepareCall(query2);
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(query2);
             ps.setInt(1, this.P_Id);
             rs2 = ps.executeQuery();
             rs2.next();
