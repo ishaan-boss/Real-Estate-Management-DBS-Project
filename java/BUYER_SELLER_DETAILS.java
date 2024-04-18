@@ -20,7 +20,9 @@ public class BUYER_SELLER_DETAILS extends javax.swing.JFrame {
      */
     public BUYER_SELLER_DETAILS(P_PROPERTY prop) {
         
+        
         initComponents();
+        this.setLocationRelativeTo(null);
         int sid=prop.getSID();
         System.out.println(sid);
         

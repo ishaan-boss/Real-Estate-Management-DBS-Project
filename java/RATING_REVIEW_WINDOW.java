@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicHTML;
 //import javax.swing.plaf.basic.BasicHTML;
 
@@ -25,6 +26,7 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
      */
     public RATING_REVIEW_WINDOW(P_PROPERTY property) {
         initComponents();
+        this.setLocationRelativeTo(null);
         p=property;
         this.P_Id = property.getPID();
         //jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -204,26 +206,40 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
         ResultSet rs1, rs2;
         String query1 = "SELECT View FROM Rating WHERE P_Id = ?;";
         String query2 = "SELECT Rating FROM Rating WHERE P_Id = ?;";
+        String query5 = "SELECT count(review) FROM review WHERE P_Id = ?;";
         String query3 = "UPDATE Rating SET Rating = ?, View = ? WHERE P_Id = ?;";
         String query4 = "INSERT INTO Review VALUE (?, ?);";
         float Rating_old = 0f;
         int View_old = 0;
         int Views = 0;
+        int count=0;
         try{
             ps = THE_CONNECTION.getTheConnection().prepareStatement(query1);
             ps.setInt(1, this.P_Id);
             rs1 = ps.executeQuery();
             rs1.next();
-            Rating_old = rs1.getFloat(1);
+            View_old = rs1.getInt(1);
             
             ps = THE_CONNECTION.getTheConnection().prepareStatement(query2);
             ps.setInt(1, this.P_Id);
             rs2 = ps.executeQuery();
             rs2.next();
-            View_old = rs1.getInt(1);
+            Rating_old = rs2.getFloat(1);
+            
+            ps = THE_CONNECTION.getTheConnection().prepareStatement(query5);
+            ps.setInt(1, this.P_Id);
+            rs2 = ps.executeQuery();
+            rs2.next();
+            
+            count=rs2.getInt(1);
+            System.out.println("IN REVIEW RATING WINDOW"+count+"OLD RATING"+Rating_old);
+            
             
             Views = View_old;
-            Rating = (((float)(Rating + Rating_old*View_old))/(float)Views);
+            if(count!=0){
+            Rating = ((float)(Rating + Rating_old*(count))/(count+1));}
+            
+            System.out.println("IN REVIEW RATING WINDOW RATING"+Rating);
             ps = THE_CONNECTION.getTheConnection().prepareStatement(query3);
             ps.setFloat(1, Rating);
             ps.setInt(2, Views);
@@ -235,6 +251,9 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
                 ps.setInt(1, this.P_Id);
                 ps.setString(2, review);
                 ps.executeUpdate();
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"PLEASE ENTER A REVIEW");
             }
             this.dispose();
         }catch(SQLException ex){
