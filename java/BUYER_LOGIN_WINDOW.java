@@ -247,7 +247,7 @@ public class BUYER_LOGIN_WINDOW extends javax.swing.JFrame {
                 if (rs.next()){
                     buyerid = rs.getInt("B_Id");
 //                    JOptionPane.showMessageDialog(null,"WE NEED TO SHOW THE MAIN FORM TO THE USER");
-                    System.out.println("Inside login button:"+buyerid);
+                   // System.out.println("Inside login button:"+buyerid);
                     BUYER_DASHBOARD obj = new BUYER_DASHBOARD(buyerid);
                     
                     obj.setVisible(true);

@@ -40,7 +40,7 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
         
         try {
             ps = THE_CONNECTION.getTheConnection().prepareStatement(rent_Query);
-            System.out.println(rent_Query);
+            //System.out.println(rent_Query);
             rs  = ps.executeQuery();
             rs.next();
             jLabel_Size.setText(rs.getString("property.size"));
@@ -52,11 +52,11 @@ public class RENT_AGREEMENT_WINDOW extends javax.swing.JFrame {
             ps = THE_CONNECTION.getTheConnection().prepareStatement(seller_Query);
            
             jLabel_PID.setText(String.valueOf(pid));
-            System.out.println(seller_Query+pid);
+           // System.out.println(seller_Query+pid);
             rs2 = ps.executeQuery();
              rs2.next();
             ps = THE_CONNECTION.getTheConnection().prepareStatement(buyer_Query);
-            System.out.println(buyer_Query);
+           // System.out.println(buyer_Query);
             rs3 = ps.executeQuery();
              rs3.next();
              

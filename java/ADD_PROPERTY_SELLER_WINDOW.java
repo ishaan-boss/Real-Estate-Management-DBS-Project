@@ -23,7 +23,7 @@ public class ADD_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
     public ADD_PROPERTY_SELLER_WINDOW(int sid) {
         initComponents();
         sellerid = sid;
-        System.out.println("INSIDE ADD"+sellerid);
+        //System.out.println("INSIDE ADD"+sellerid);
         
         //set border to the jpanel title
         Border panel_title_border = BorderFactory.createMatteBorder(0, 0, 3, 0, new Color(125,125,125));
@@ -466,10 +466,10 @@ public class ADD_PROPERTY_SELLER_WINDOW extends javax.swing.JFrame {
             
             P_PROPERTY property = new P_PROPERTY(sellerid, name, size, status, HouseNo, Floor, StreetName, Locality,City, State, PostalCode, Bedrooms,isRERAApproved ,  Category, Description);
 //            property.setSID(sellerid);
-                System.out.println("CAlling p_property constructor"+sellerid);
+                //System.out.println("CAlling p_property constructor"+sellerid);
             //if ("Sell".equals(Category)) DurationInteger=0;
             if(Category.equals("Rent")){
-                System.out.println("Rent");
+               // System.out.println("Rent");
                 DurationInteger= Integer.valueOf(jTextField_Duration.getText());
             }
             

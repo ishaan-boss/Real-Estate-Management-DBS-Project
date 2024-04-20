@@ -24,11 +24,11 @@ public class BUYER_SELLER_DETAILS extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         int sid=prop.getSID();
-        System.out.println(sid);
+      //  System.out.println(sid);
         
         String query="select seller.name,seller.email,seller.phone from seller where seller.S_Id= "+sid;
         try{
-            System.out.println("IN BUYER_SELLER DETAILS" +query);
+           // System.out.println("IN BUYER_SELLER DETAILS" +query);
         PreparedStatement ps;
             ResultSet rs;
         ps= THE_CONNECTION.getTheConnection().prepareStatement(query);

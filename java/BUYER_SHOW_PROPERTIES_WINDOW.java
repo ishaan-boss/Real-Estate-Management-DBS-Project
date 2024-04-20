@@ -241,7 +241,7 @@ public class BUYER_SHOW_PROPERTIES_WINDOW extends javax.swing.JFrame {
         }catch(SQLException ex){
             Logger.getLogger(P_PROPERTY.class.getName()).log(Level.SEVERE, null, ex);
         }                                  
-        System.out.println("Inside table of show prop:"+buyerid);
+        //System.out.println("Inside table of show prop:"+buyerid);
         BUYER_SHOW_PROPERTY_VIEW w = new BUYER_SHOW_PROPERTY_VIEW(buyerid,property);
         w.setVisible(true);
         w.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

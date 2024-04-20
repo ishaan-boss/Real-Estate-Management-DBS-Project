@@ -43,12 +43,12 @@ public class GMap extends javax.swing.JFrame {
     int pid;
     public GMap(int obj) {
         pid = obj;
-        System.out.println("inside gmap construct:"+pid);
+        //System.out.println("inside gmap construct:"+pid);
         initComponents();
         try {
             buildGMap();
         } catch (SQLException ex) {
-            System.out.println("In catch of BuildGmap");
+            //System.out.println("In catch of BuildGmap");
             Logger.getLogger(GMap.class.getName()).log(Level.SEVERE, null, ex);
             
         }
@@ -72,7 +72,7 @@ public class GMap extends javax.swing.JFrame {
         rs.next();
         lat = rs.getFloat(2);
         lon = rs.getFloat(3);
-            System.out.println("Lat"+lat+"  "+lon);
+            //System.out.println("Lat"+lat+"  "+lon);
         }catch(SQLException ex){
             Logger.getLogger(GMap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }

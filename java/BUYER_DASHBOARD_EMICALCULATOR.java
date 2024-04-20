@@ -186,9 +186,9 @@ public class BUYER_DASHBOARD_EMICALCULATOR extends javax.swing.JFrame {
         
         double monthlyInstallment;
         monthlyInstallment = p*Math.pow((r+1), t/12)/t;
-        System.out.println(monthlyInstallment);
+        //System.out.println(monthlyInstallment);
         double totalAfter=p*Math.pow((r+1), t/12);
-        System.out.println(totalAfter);
+        //System.out.println(totalAfter);
         BUYER_EMI_RESULT w5=new BUYER_EMI_RESULT(monthlyInstallment,totalAfter);
         w5.setVisible(true);
         w5.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);

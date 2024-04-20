@@ -247,7 +247,7 @@ public class SELLER_LOGIN_WINDOW extends javax.swing.JFrame {
                 rs=ps.executeQuery();
                 if (rs.next()){
                     SID = rs.getInt("S_Id");
-                    System.out.println("INSIDE SELLER LOGIN"+SID);
+                    //System.out.println("INSIDE SELLER LOGIN"+SID);
                     SELLER_DASHBOARD obj = new SELLER_DASHBOARD(SID);
                     obj.setVisible(true);
                     this.dispose();

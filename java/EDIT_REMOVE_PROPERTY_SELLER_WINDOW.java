@@ -617,7 +617,7 @@ public boolean isRERABoolean(String bool)
             P_PROPERTY property = new P_PROPERTY( sellerid,name, size, status, HouseNo, Floor, StreetName, Locality,City, State, PostalCode, Bedrooms,isRERAApproved ,  Category, Description);
             property.setSID(sellerid);
              if(Category.equals("Rent")){
-                System.out.println("Rent");
+               // System.out.println("Rent");
                 DurationInteger= Integer.valueOf(jTextField_Duration.getText());
             }
             

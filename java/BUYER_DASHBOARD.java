@@ -44,10 +44,11 @@ int buyerid;
         jLabel_Buyer_Dashboard_Icon = new javax.swing.JLabel();
         jLabelShowProperties = new javax.swing.JLabel();
         jLabelEMI = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabelBuyRent = new javax.swing.JLabel();
         jPanelSpace = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButtonLOGOUT = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -93,10 +94,6 @@ int buyerid;
             }
         });
 
-        jLabel4.setBackground(new java.awt.Color(204, 255, 255));
-        jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
-        jLabel4.setOpaque(true);
-
         jLabelBuyRent.setBackground(new java.awt.Color(255, 204, 153));
         jLabelBuyRent.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabelBuyRent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -130,18 +127,50 @@ int buyerid;
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+
+        jButtonLOGOUT.setBackground(new java.awt.Color(255, 204, 153));
+        jButtonLOGOUT.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonLOGOUT.setText("LOG OUT");
+        jButtonLOGOUT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLOGOUTActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jButtonLOGOUT, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(388, Short.MAX_VALUE)
+                .addComponent(jButtonLOGOUT, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabelBuyRent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelEMI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelShowProperties, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel_Buyer_Dashboard_Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabelBuyRent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelEMI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelShowProperties, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel_Buyer_Dashboard_Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addComponent(jPanelSpace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -155,7 +184,7 @@ int buyerid;
                 .addGap(0, 0, 0)
                 .addComponent(jLabelBuyRent, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jPanelSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -188,7 +217,7 @@ int buyerid;
         if(emi_window!=null)
             emi_window.dispose();
         
-        System.out.println("Inside show prop button:"+buyerid);
+       // System.out.println("Inside show prop button:"+buyerid);
         show_window  = new BUYER_SHOW_PROPERTIES_WINDOW(buyerid);
         if(buy_rent_window!=null)show_window.setVisible(false);
         //if(emi_window!=null)emi_window.setVisible(false);
@@ -213,6 +242,18 @@ int buyerid;
         emi_window.setLocationRelativeTo(jPanelSpace);
         if(emi_window!=null)emi_window.setVisible(true);
     }//GEN-LAST:event_jLabelEMIMouseClicked
+
+    private void jButtonLOGOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLOGOUTActionPerformed
+        // TODO add your handling code here:
+          LOGIN w0 = new LOGIN();
+        w0.setVisible(true);
+        this.dispose();
+        if(emi_window!=null)emi_window.dispose();
+        if(show_window!=null)show_window.dispose();
+        if(buy_rent_window!=null)buy_rent_window.dispose();
+        //if(show_window!=null)show_window.dispose();
+        
+    }//GEN-LAST:event_jButtonLOGOUTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,12 +291,13 @@ int buyerid;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonLOGOUT;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelBuyRent;
     private javax.swing.JLabel jLabelEMI;
     private javax.swing.JLabel jLabelShowProperties;
     private javax.swing.JLabel jLabel_Buyer_Dashboard_Icon;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelSpace;
     // End of variables declaration//GEN-END:variables

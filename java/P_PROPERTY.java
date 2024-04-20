@@ -493,7 +493,7 @@ public class P_PROPERTY {
         String editQuery_G_Map = "UPDATE G_Map SET Latitude = ?, Longitude = ?;";
         try {
             ps =  THE_CONNECTION.getTheConnection().prepareStatement(editQuery);
-            System.out.println("IN P_PROPERTY"+property.getSID());
+            //System.out.println("IN P_PROPERTY"+property.getSID());
             ps.setInt(1, property.getSID());
             ps.setString(2, property.getName());
             ps.setInt(3, property.getSize());
@@ -555,22 +555,22 @@ public class P_PROPERTY {
         try {
             
             
-            ps =  THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery_Rent);
-            ps.setInt(1, P_Id);
-           int i = ps.executeUpdate();
+//            ps =  THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery_Rent);
+//            ps.setInt(1, P_Id);
+//           int i = ps.executeUpdate();
             
-            ps =  THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery_Sale);
-            ps.setInt(1, P_Id);
-            i = ps.executeUpdate();
-            
-            ps =  THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery_G_Map);
-            ps.setInt(1, P_Id);
-            i = ps.executeUpdate();
+//            ps =  THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery_Sale);
+//            ps.setInt(1, P_Id);
+//            i = ps.executeUpdate();
+//            
+//            ps =  THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery_G_Map);
+//            ps.setInt(1, P_Id);
+//            i = ps.executeUpdate();
             
             ps =  THE_CONNECTION.getTheConnection().prepareStatement(deleteQuery);
             
             ps.setInt(1, P_Id);
-             i = ps.executeUpdate();
+             int i = ps.executeUpdate();
             
             return (i > 0);
             
@@ -825,14 +825,14 @@ public class P_PROPERTY {
 //        }
 
 
-        System.out.println(filter +" "+ sort);
+        //System.out.println(filter +" "+ sort);
         PreparedStatement ps = null;
         ResultSet rs;
         try{
             ps = THE_CONNECTION.getTheConnection().prepareStatement(selectQuery1);
             //ps.setString(1, filter);
             //ps.setString(2, sort);
-            System.out.println(ps);
+            //System.out.println(ps);
             rs = ps.executeQuery();
             P_PROPERTY property;
             while(rs.next()){
@@ -853,7 +853,7 @@ public class P_PROPERTY {
                         rs.getString("Description"));
                 property.setPID(rs.getInt("P_ID"));
                 filterPropertyList.add(property);
-                System.out.println(rs.getInt("size"));
+               // System.out.println(rs.getInt("size"));
             }
 
         }catch(SQLException ex){

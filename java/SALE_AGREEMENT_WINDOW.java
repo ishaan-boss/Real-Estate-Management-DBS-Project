@@ -39,17 +39,17 @@ public class SALE_AGREEMENT_WINDOW extends javax.swing.JFrame {
             jLabel_Size.setText(rs.getString("property.size"));
             jLabel_Price.setText(rs.getString("sale.price"));
             jLabel_SAgrId.setText(String.valueOf(pid));
-            System.out.println("inside sale agreement try block:"+pid+" "+buyerid);
+            //System.out.println("inside sale agreement try block:"+pid+" "+buyerid);
             
             
             seller_Query = "Select Seller.Name, Seller.Address from Seller natural join property where property.p_id ="+pid;
             ps = THE_CONNECTION.getTheConnection().prepareStatement(seller_Query);
             
-            System.out.println(seller_Query+pid);
+            //System.out.println(seller_Query+pid);
             rs2 = ps.executeQuery();
              rs2.next();
             ps = THE_CONNECTION.getTheConnection().prepareStatement(buyer_Query);
-            System.out.println(buyer_Query);
+           // System.out.println(buyer_Query);
             rs3 = ps.executeQuery();
              rs3.next();
              

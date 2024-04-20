@@ -228,8 +228,8 @@ public class BUYER_DASHBOARD_BUY_VS_RENT extends javax.swing.JFrame {
         Double rate = Double.valueOf(jSpinner_rate.getValue().toString());
         Integer amount = Integer.valueOf(jSpinner_amount.getValue().toString());
         Integer duration = Integer.valueOf(jSpinner_duration.getValue().toString());
-        System.out.println(p_price*((Math.pow(1+rate/100, duration/12))/(duration)));
-        System.out.println(amount);
+        //System.out.println(p_price*((Math.pow(1+rate/100, duration/12))/(duration)));
+        //System.out.println(amount);
         if(amount > p_price*((Math.pow(rate/100, duration/12))/(duration))){
             jLabel_result.setText("BUY");
             //jLabel_result.setVisible(true);

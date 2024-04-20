@@ -232,14 +232,14 @@ public class RATING_REVIEW_WINDOW extends javax.swing.JFrame {
             rs2.next();
             
             count=rs2.getInt(1);
-            System.out.println("IN REVIEW RATING WINDOW"+count+"OLD RATING"+Rating_old);
+           // System.out.println("IN REVIEW RATING WINDOW"+count+"OLD RATING"+Rating_old);
             
             
             Views = View_old;
             if(count!=0){
             Rating = ((float)(Rating + Rating_old*(count))/(count+1));}
             
-            System.out.println("IN REVIEW RATING WINDOW RATING"+Rating);
+           // System.out.println("IN REVIEW RATING WINDOW RATING"+Rating);
             ps = THE_CONNECTION.getTheConnection().prepareStatement(query3);
             ps.setFloat(1, Rating);
             ps.setInt(2, Views);

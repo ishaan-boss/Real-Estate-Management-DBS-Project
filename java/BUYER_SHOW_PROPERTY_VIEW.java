@@ -621,7 +621,7 @@ public ImageIcon resizeImage(String filePath,byte [] byteImage)
         // TODO add your handling code here:
         SALE_AGREEMENT_WINDOW swindow;
         RENT_AGREEMENT_WINDOW rwindow;
-        System.out.println("in agreement button"+buyerid);
+        //System.out.println("in agreement button"+buyerid);
         if(property.getCategory().equalsIgnoreCase("rent")){
            rwindow = new RENT_AGREEMENT_WINDOW(buyerid,property);
            rwindow.setVisible(true);}
